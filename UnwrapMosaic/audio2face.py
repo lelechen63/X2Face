@@ -76,6 +76,7 @@ for sourcepath in sourcepaths:
     print ('+++')
     audio_feature_origin = torch.Tensor(audio_feature_origin).unsqueeze(2).unsqueeze(2)
     for imgpath in imgpaths:
+        print (audio_data['image'].shape)
         # Extract the driving audio features
         fullaudiopath = os.path.join(audio_path, imgpath)
         audio_data = load_img_and_audio(fullaudiopath)
