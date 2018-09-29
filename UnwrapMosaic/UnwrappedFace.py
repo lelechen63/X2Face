@@ -17,7 +17,7 @@ class UnwrappedFaceWeightedAverage(nn.Module):
 		super(UnwrappedFaceWeightedAverage, self).__init__()
 		print ('====')
 
-		self.pix2pixUnwrapped = Pix2PixModel(3)
+		self.pix2pixUnwrapped = Pix2PixModel()
 		print('99999')
 		self.pix2pixSampler = NoSkipPix2PixModel(input_num_channels, output_num_channels, inner_nc=inner_nc)
 

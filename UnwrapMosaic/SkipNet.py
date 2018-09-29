@@ -176,10 +176,10 @@ def print_network(net):
 
 # Defines the SkipNetWork
 class Pix2PixModel(nn.Module):
-    def __init__(self, output_nc, input_nc=3):
+    def __init__(self):
         super(Pix2PixModel, self).__init__()
 
-        self.netG = define_G(input_nc, output_nc, 64, 'unet_256', 'batch', False, 'xavier', [0])
+        self.netG = define_G(3, 3, 64, 'unet_256', 'batch', False, 'xavier', [0])
 
     def forward(self, *cycles):
         print ('+++')
