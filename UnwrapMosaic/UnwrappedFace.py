@@ -15,12 +15,13 @@ import numpy as np
 class UnwrappedFaceWeightedAverage(nn.Module):
 	def __init__(self, output_num_channels=2, input_num_channels=3, inner_nc=512):
 		super(UnwrappedFaceWeightedAverage, self).__init__()
+		print ('====')
 
 		self.pix2pixUnwrapped = Pix2PixModel(3)
-
+		print('99999')
 		self.pix2pixSampler = NoSkipPix2PixModel(input_num_channels, output_num_channels, inner_nc=inner_nc)
 
-
+		print ('66666')
 	def forward(self, target_pose, *input_imgs):
 		print ('+++')
 		xs = np.linspace(-1,1,input_imgs[0].size(2))
