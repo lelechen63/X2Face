@@ -13,7 +13,6 @@ print ('1')
 def load_img_and_audio(file_path):
     transform = Compose([Scale((256,256)), ToTensor()])
     img = Image.open(file_path).convert('RGB')
-    print (img)
     img = transform(img)
     audio_label_path = str(file_path).replace('audio_faces', 'audio_features').replace('jpg','npz')
     audio_feature = torch.Tensor(np.load(audio_label_path)['audio_feat'])
@@ -30,11 +29,8 @@ imgpaths = os.listdir(audio_path)
 # loading models
 BASE_MODEL = '/mnt/ssd0/dat/lchen63/release_models/' # Change to your path
 model_path = BASE_MODEL + 'x2face_model.pth'
-print ('2')
 model = UnwrappedFaceWeightedAverage(output_num_channels=2, input_num_channels=3,inner_nc=128)
-print('+++')
 model.load_state_dict(torch.load(model_path, map_location=lambda storage, loc: storage)['state_dict'])
-print ('3')
 s_dict = torch.load(model_path, map_location=lambda storage, loc: storage)
 modelfortargetpose = BottleneckFromNet()
 state = modelfortargetpose.state_dict()
@@ -50,7 +46,6 @@ posemodel._modules['0'].bias.data = p_dict_pre['posefrombottle.bias'].cpu()
 bottleneckmodel = nn.Sequential(nn.Linear(3, 128, bias=False), nn.BatchNorm1d(128))
 b_dict_pre = torch.load(BASE_MODEL + '/posetobottle.pth', map_location=lambda storage, loc: storage)['state_dict']
 bottleneckmodel.load_state_dict(b_dict_pre)
-print ('++++')
 model = model
 modelfortargetpose = modelfortargetpose
 posemodel = posemodel
@@ -60,7 +55,6 @@ model.eval()
 modelfortargetpose.eval()
 posemodel.eval()
 bottleneckmodel.eval()
-print ('-----')
 # load linear regression from audio features to driving vector space
 linearregression = joblib.load(BASE_MODEL + '/linearregression_scaledTrue_7000.pkl')
 scalar = joblib.load(BASE_MODEL + '/scaler_7000.pkl')
@@ -102,9 +96,9 @@ for sourcepath in sourcepaths:
         handle = model.pix2pixSampler.netG.model.submodule.submodule.submodule.submodule.submodule.submodule.submodule.down[1].register_forward_hook(update_bottleneck)
         result = model(source_img, source_img)
         handle.remove()
-        img_to_show_all = np.hstack((result.squeeze().cpu().data.permute(1,2,0).numpy(), img_to_show_all))
+        img_to_show_all = np.hstack((result.squeeze().data.permute(1,2,0).numpy(), img_to_show_all))
         if img_gt_gen.shape == (0,2560,3):
-            gt_ims = np.hstack((audio_img.squeeze().cpu().data.permute(1,2,0).numpy(), gt_ims))
+            gt_ims = np.hstack((audio_img.squeeze().data.permute(1,2,0).numpy(), gt_ims))
     if img_gt_gen.shape == (0,2560,3):
         img_gt_gen = np.vstack((img_gt_gen, gt_ims))
     img_gt_gen = np.vstack((img_gt_gen, img_to_show_all))
