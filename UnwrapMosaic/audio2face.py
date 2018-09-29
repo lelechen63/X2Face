@@ -8,7 +8,7 @@ from torch.autograd import Variable
 from UnwrappedFace import UnwrappedFaceWeightedAverage, BottleneckFromNet
 from sklearn.externals import joblib
 from torchvision.transforms import Compose, Scale, ToTensor
-os.environ["CUDA_VISIBLE_DEVICES"] = '1'
+os.environ["CUDA_VISIBLE_DEVICES"] = '0'
 def load_img_and_audio(file_path):
     transform = Compose([Scale((256,256)), ToTensor()])
     img = Image.open(file_path).convert('RGB')
