@@ -95,6 +95,7 @@ for sourcepath in sourcepaths:
         # Add a forward hook to update the model's bottleneck
         handle = model.pix2pixSampler.netG.model.submodule.submodule.submodule.submodule.submodule.submodule.submodule.down[1].register_forward_hook(update_bottleneck)
         result = model(source_img, source_img)
+        print (result.size())
         handle.remove()
         img_to_show_all = np.hstack((result.squeeze().data.permute(1,2,0).numpy(), img_to_show_all))
         if img_gt_gen.shape == (0,2560,3):
