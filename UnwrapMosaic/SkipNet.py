@@ -176,14 +176,16 @@ def print_network(net):
 
 # Defines the SkipNetWork
 class Pix2PixModel(nn.Module):
-	def __init__(self, output_nc, input_nc=3):
-		super(Pix2PixModel, self).__init__()
-        self.netG = define_G(self.input_nc, self.output_nc, 64, 'unet_256', 'batch', False, 'xavier', [0])
-	def forward(self, *cycles):
+    def __init__(self, output_nc, input_nc=3):
+        super(Pix2PixModel, self).__init__()
+
+        self.netG = define_G(input_nc, output_nc, 64, 'unet_256', 'batch', False, 'xavier', [0])
+
+    def forward(self, *cycles):
         print ('+++')
-		# First one
-		xc = self.netG(cycles[0], *cycles[1:])
-		return xc
+        # First one
+        xc = self.netG(cycles[0], *cycles[1:])
+        return xc
 
 def define_D(input_nc, ndf, which_model_netD,
              n_layers_D=3, norm='batch', use_sigmoid=False, init_type='normal', gpu_ids=[]):
