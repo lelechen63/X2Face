@@ -8,6 +8,7 @@ from torch.autograd import Variable
 from UnwrappedFace import UnwrappedFaceWeightedAverage, BottleneckFromNet
 from sklearn.externals import joblib
 from torchvision.transforms import Compose, Scale, ToTensor
+from scipy.misc import imsave
 os.environ["CUDA_VISIBLE_DEVICES"] = ''
 print ('1')
 def load_img_and_audio(file_path):
@@ -62,6 +63,7 @@ scalar = None
 
 # Drive 3 different identities with same audio
 img_gt_gen = np.empty((0,2560,3))
+cc = 0
 for sourcepath in sourcepaths:
     img_to_show_all = np.empty((256,0,3))
     gt_ims = np.empty((256,0,3))
@@ -95,6 +97,10 @@ for sourcepath in sourcepaths:
         # Add a forward hook to update the model's bottleneck
         handle = model.pix2pixSampler.netG.model.submodule.submodule.submodule.submodule.submodule.submodule.submodule.down[1].register_forward_hook(update_bottleneck)
         result = model(source_img, source_img)
+        gg = result.squeeze().data.permute(1,2,0).numpy()
+        cc += 1
+        imsave('/mnt/ssd0/project/lchen63/X2Face/UnwrapMosaic/results/%d.jpg'%cc,gg )
+
         print (result.size())
         handle.remove()
         img_to_show_all = np.hstack((result.squeeze().data.permute(1,2,0).numpy(), img_to_show_all))
