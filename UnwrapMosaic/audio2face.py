@@ -73,9 +73,8 @@ for sourcepath in sourcepaths:
     print ('======')
     audio_feature_source = source_data['audio'].cpu().numpy().reshape(1,-1)
     audio_feature_origin = linearregression.predict(audio_feature_source)
-    print (audio_feature_origin.size())
     print ('+++')
-    audio_feature_origin = torch.Tensor(audio_feature_origin).unsqueeze(2).unsqueeze(2)
+     = torch.Tensor(audio_feature_origin).unsqueeze(2).unsqueeze(2)
     for imgpath in imgpaths:
         # Extract the driving audio features
         fullaudiopath = os.path.join(audio_path, imgpath)
