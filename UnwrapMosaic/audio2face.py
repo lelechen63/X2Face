@@ -69,6 +69,8 @@ for sourcepath in sourcepaths:
     gt_ims = np.empty((256,0,3))
     source_data = load_img_and_audio(sourcepath)
     source_img = Variable(source_data['image']).unsqueeze(0)
+    print (source_data['audio'])
+    print ('======')
     audio_feature_source = source_data['audio'].cpu().numpy().reshape(1,-1)
     audio_feature_origin = linearregression.predict(audio_feature_source)
     audio_feature_origin = torch.Tensor(audio_feature_origin).unsqueeze(2).unsqueeze(2)
