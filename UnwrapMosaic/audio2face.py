@@ -31,6 +31,7 @@ BASE_MODEL = '/mnt/ssd0/dat/lchen63/release_models/' # Change to your path
 model_path = BASE_MODEL + 'x2face_model.pth'
 print ('2')
 model = UnwrappedFaceWeightedAverage(output_num_channels=2, input_num_channels=3,inner_nc=128)
+print('+++')
 model.load_state_dict(torch.load(model_path)['state_dict'])
 print ('3')
 s_dict = torch.load(model_path)
