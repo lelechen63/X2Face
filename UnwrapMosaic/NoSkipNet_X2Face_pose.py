@@ -105,9 +105,7 @@ def define_G(input_nc, output_nc, input_pose, audio, expr, ngf, which_model_netG
     use_gpu = len(gpu_ids) > 0
     norm_layer = get_norm_layer(norm_type=norm)
 
-    if use_gpu:
-        assert(torch.cuda.is_available())
-
+    
     if which_model_netG == 'resnet_9blocks':
         netG = ResnetGenerator(input_nc, output_nc, ngf, norm_layer=norm_layer, use_dropout=use_dropout, n_blocks=9, gpu_ids=gpu_ids)
     elif which_model_netG == 'resnet_6blocks':
@@ -118,8 +116,7 @@ def define_G(input_nc, output_nc, input_pose, audio, expr, ngf, which_model_netG
         netG = UnetGeneratorBetterUpsampler(input_nc, output_nc, input_pose, audio, expr, 8, ngf, inner_nc=inner_nc, norm_layer=norm_layer, use_dropout=use_dropout, gpu_ids=gpu_ids)
     else:
         raise NotImplementedError('Generator model name [%s] is not recognized' % which_model_netG)
-    if len(gpu_ids) > 0:
-        netG.cuda()
+    
     init_weights(netG, init_type=init_type)
     return netG
 
