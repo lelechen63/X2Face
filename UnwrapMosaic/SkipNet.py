@@ -164,7 +164,7 @@ def define_G(input_nc, output_nc, ngf, which_model_netG, norm='batch', use_dropo
         raise NotImplementedError('Generator model name [%s] is not recognized' % which_model_netG)
     print ('4444')
     # if len(gpu_ids) > 0:
-    #     netG.cuda()
+    #     netG
     print ('555555')
     init_weights(netG, init_type=init_type)
     print ('6666')
@@ -198,8 +198,6 @@ def define_D(input_nc, ndf, which_model_netD,
     use_gpu = len(gpu_ids) > 0
     norm_layer = get_norm_layer(norm_type=norm)
 
-    if use_gpu:
-        assert(torch.cuda.is_available())
     if which_model_netD == 'basic':
         netD = NLayerDiscriminator(input_nc, ndf, n_layers=3, norm_layer=norm_layer, use_sigmoid=use_sigmoid, gpu_ids=gpu_ids)
     elif which_model_netD == 'n_layers':
@@ -460,7 +458,5 @@ class NLayerDiscriminator(nn.Module):
         self.model = nn.Sequential(*sequence)
 
     def forward(self, input):
-        if len(self.gpu_ids) and isinstance(input.data, torch.cuda.FloatTensor):
-            return nn.parallel.data_parallel(self.model, input, self.gpu_ids)
-        else:
-            return self.model(input)
+        
+        return self.model(input)

@@ -28,7 +28,7 @@ class UnwrappedFaceWeightedAverage(nn.Module):
 		xs = np.meshgrid(xs, xs)
 		xs = np.stack(xs, 2)
 		print ('---')
-		xs = torch.Tensor(xs).unsqueeze(0).repeat(input_imgs[0].size(0), 1,1,1).cuda()
+		xs = torch.Tensor(xs).unsqueeze(0).repeat(input_imgs[0].size(0), 1,1,1)
 
 		input_imgs_t = [0] * len(input_imgs)
 		confidence = [0] * len(input_imgs)
@@ -62,8 +62,8 @@ class UnwrappedFaceWeightedAverage(nn.Module):
 		print ('@@@@@@@@@@')
 		sampler_xy = nn.Tanh()(sampler[:,0:2,:,:])
 		#print(confidences.size(), xs.size())
-		stddev = nn.Softplus().cuda()(sampler[:,2:,:,:]).clamp(max=40)
-		sampler_xy = sampler_xy.permute(0,2,3,1) + stddev.permute(0,2,3,1).contiguous().mul(Variable(torch.randn(xs.size()).cuda(), requires_grad=False)) + Variable(xs, requires_grad=False) # choose values according to the std dev
+		stddev = nn.Softplus()(sampler[:,2:,:,:]).clamp(max=40)
+		sampler_xy = sampler_xy.permute(0,2,3,1) + stddev.permute(0,2,3,1).contiguous().mul(Variable(torch.randn(xs.size()), requires_grad=False)) + Variable(xs, requires_grad=False) # choose values according to the std dev
 		sampler_xy = sampler_xy.clamp(min=-1,max=1)
 
 		sampled_image = nn.functional.grid_sample(result_xc, sampler_xy)
@@ -73,7 +73,7 @@ class UnwrappedFaceWeightedAverage(nn.Module):
 		xs = np.linspace(-1,1,input_img.size(2))
 		xs = np.meshgrid(xs, xs)
 		xs = np.stack(xs, 2)
-		xs = torch.Tensor(xs).unsqueeze(0).repeat(input_img.size(0), 1,1,1).cuda()
+		xs = torch.Tensor(xs).unsqueeze(0).repeat(input_img.size(0), 1,1,1)
 
 		temp = self.pix2pixUnwrapped(input_img)[0]
 		sampler = temp[:,0:2,:,:]
@@ -85,7 +85,7 @@ class UnwrappedFaceWeightedAverage(nn.Module):
 		xs = np.linspace(-1,1,input_imgs[0].size(2))
 		xs = np.meshgrid(xs, xs)
 		xs = np.stack(xs, 2)
-		xs = torch.Tensor(xs).unsqueeze(0).repeat(input_imgs[0].size(0), 1,1,1).cuda()
+		xs = torch.Tensor(xs).unsqueeze(0).repeat(input_imgs[0].size(0), 1,1,1)
 
 		input_imgs_t = [0] * len(input_imgs)
 		confidence = [0] * len(input_imgs)
@@ -113,7 +113,7 @@ class UnwrappedFaceWeightedAverage(nn.Module):
 		xs = np.linspace(-1,1,sampler.size(2))
 		xs = np.meshgrid(xs, xs)
 		xs = np.stack(xs, 2)
-		xs = torch.Tensor(xs).unsqueeze(0).repeat(target_pose.size(0), 1,1,1).cuda()
+		xs = torch.Tensor(xs).unsqueeze(0).repeat(target_pose.size(0), 1,1,1)
 
 		sampler = sampler.permute(0,2,3,1) + Variable(xs, requires_grad=False)
 		return sampler
@@ -131,7 +131,7 @@ class UnwrappedFaceWeightedAveragePose(nn.Module):
 		xs = np.meshgrid(xs, xs)
 		xs = np.stack(xs, 2)
 
-		xs = torch.Tensor(xs).unsqueeze(0).repeat(input_imgs[0].size(0), 1,1,1).cuda()
+		xs = torch.Tensor(xs).unsqueeze(0).repeat(input_imgs[0].size(0), 1,1,1)
 
 		input_imgs_t = [0] * len(input_imgs)
 		confidence = [0] * len(input_imgs)
@@ -164,8 +164,8 @@ class UnwrappedFaceWeightedAveragePose(nn.Module):
 
 		sampler_xy = nn.Tanh()(sampler[:,0:2,:,:])
 		#print(confidences.size(), xs.size())
-		stddev = nn.Softplus().cuda()(sampler[:,2:,:,:]).clamp(max=40)
-		sampler_xy = sampler_xy.permute(0,2,3,1) + stddev.permute(0,2,3,1).contiguous().mul(Variable(torch.randn(xs.size()).cuda(), requires_grad=False)) + Variable(xs, requires_grad=False) # choose values according to the std dev
+		stddev = nn.Softplus()(sampler[:,2:,:,:]).clamp(max=40)
+		sampler_xy = sampler_xy.permute(0,2,3,1) + stddev.permute(0,2,3,1).contiguous().mul(Variable(torch.randn(xs.size()), requires_grad=False)) + Variable(xs, requires_grad=False) # choose values according to the std dev
 		sampler_xy = sampler_xy.clamp(min=-1,max=1)
 
 		sampled_image = nn.functional.grid_sample(result_xc, sampler_xy)
@@ -175,7 +175,7 @@ class UnwrappedFaceWeightedAveragePose(nn.Module):
 		xs = np.linspace(-1,1,input_imgs[0].size(2))
 		xs = np.meshgrid(xs, xs)
 		xs = np.stack(xs, 2)
-		xs = torch.Tensor(xs).unsqueeze(0).repeat(input_imgs[0].size(0), 1,1,1).cuda()
+		xs = torch.Tensor(xs).unsqueeze(0).repeat(input_imgs[0].size(0), 1,1,1)
 
 		input_imgs_t = [0] * len(input_imgs)
 		confidence = [0] * len(input_imgs)
@@ -203,7 +203,7 @@ class UnwrappedFaceWeightedAveragePose(nn.Module):
 		xs = np.linspace(-1,1,sampler.size(2))
 		xs = np.meshgrid(xs, xs)
 		xs = np.stack(xs, 2)
-		xs = torch.Tensor(xs).unsqueeze(0).repeat(target_pose.size(0), 1,1,1).cuda()
+		xs = torch.Tensor(xs).unsqueeze(0).repeat(target_pose.size(0), 1,1,1)
 
 		sampler = sampler.permute(0,2,3,1) + Variable(xs, requires_grad=False)
 		return sampler
