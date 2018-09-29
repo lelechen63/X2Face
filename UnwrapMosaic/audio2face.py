@@ -106,5 +106,7 @@ for sourcepath in sourcepaths:
     img_gt_gen = np.vstack((img_gt_gen, img_to_show_all))
 plt.rcParams["figure.figsize"] = [14,14]
 plt.imshow(img_gt_gen)
+plt.savefig('/mnt/ssd0/project/lchen63/X2Face/UnwrapMosaic/results/1.jpg')
+
 print('Top row: Frames corresponding to driving audio')
 print('Bottom 3 rows: generated frames driven with audio features corresponding to top row')
