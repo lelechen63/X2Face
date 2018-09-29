@@ -149,8 +149,8 @@ def define_G(input_nc, output_nc, ngf, which_model_netG, norm='batch', use_dropo
     print ('22222')
     norm_layer = get_norm_layer(norm_type=norm)
     print ('33333')
-    if use_gpu:
-        assert(torch.cuda.is_available())
+    # if use_gpu:
+    #     assert(torch.cuda.is_available())
     print ('444444')
     if which_model_netG == 'resnet_9blocks':
         netG = ResnetGenerator(input_nc, output_nc, ngf, norm_layer=norm_layer, use_dropout=use_dropout, n_blocks=9, gpu_ids=gpu_ids)
@@ -163,8 +163,8 @@ def define_G(input_nc, output_nc, ngf, which_model_netG, norm='batch', use_dropo
     else:
         raise NotImplementedError('Generator model name [%s] is not recognized' % which_model_netG)
     print ('4444')
-    if len(gpu_ids) > 0:
-        netG.cuda()
+    # if len(gpu_ids) > 0:
+    #     netG.cuda()
     print ('555555')
     init_weights(netG, init_type=init_type)
     print ('6666')

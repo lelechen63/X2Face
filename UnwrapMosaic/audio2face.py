@@ -8,7 +8,7 @@ from torch.autograd import Variable
 from UnwrappedFace import UnwrappedFaceWeightedAverage, BottleneckFromNet
 from sklearn.externals import joblib
 from torchvision.transforms import Compose, Scale, ToTensor
-os.environ["CUDA_VISIBLE_DEVICES"] = '0'
+os.environ["CUDA_VISIBLE_DEVICES"] = ''
 print ('1')
 def load_img_and_audio(file_path):
     transform = Compose([Scale((256,256)), ToTensor()])
@@ -50,10 +50,10 @@ bottleneckmodel = nn.Sequential(nn.Linear(3, 128, bias=False), nn.BatchNorm1d(12
 b_dict_pre = torch.load(BASE_MODEL + '/posetobottle.pth')['state_dict']
 bottleneckmodel.load_state_dict(b_dict_pre)
 print ('++++')
-model = model.cuda()
-modelfortargetpose = modelfortargetpose.cuda()
-posemodel = posemodel.cuda()
-bottleneckmodel = bottleneckmodel.cuda()
+model = model
+modelfortargetpose = modelfortargetpose
+posemodel = posemodel
+bottleneckmodel = bottleneckmodel
 
 model.eval()
 modelfortargetpose.eval()
@@ -71,7 +71,7 @@ for sourcepath in sourcepaths:
     img_to_show_all = np.empty((256,0,3))
     gt_ims = np.empty((256,0,3))
     source_data = load_img_and_audio(sourcepath)
-    source_img = Variable(source_data['image']).cuda().unsqueeze(0)
+    source_img = Variable(source_data['image']).unsqueeze(0)
     audio_feature_source = source_data['audio'].cpu().numpy().reshape(1,-1)
     audio_feature_origin = linearregression.predict(audio_feature_source)
     audio_feature_origin = torch.Tensor(audio_feature_origin).unsqueeze(2).unsqueeze(2)
@@ -79,7 +79,7 @@ for sourcepath in sourcepaths:
         # Extract the driving audio features
         fullaudiopath = os.path.join(audio_path, imgpath)
         audio_data = load_img_and_audio(fullaudiopath)
-        audio_img = Variable(audio_data['image'], volatile=True).cuda().unsqueeze(0)
+        audio_img = Variable(audio_data['image'], volatile=True).unsqueeze(0)
         audio_feature = audio_data['audio'].cpu().numpy().reshape(1,-1)
         if not scalar is None:
             audio_feature = scalar.transform(audio_feature)
@@ -92,7 +92,7 @@ for sourcepath in sourcepaths:
         sourceposebn = bottleneckmodel(sourcepose)
     
         def update_bottleneck(self, input, output):
-            newdrive = sourcebn.unsqueeze(0).unsqueeze(2).unsqueeze(3) + Variable(audio_feature).cuda() - Variable(audio_feature_origin).cuda()
+            newdrive = sourcebn.unsqueeze(0).unsqueeze(2).unsqueeze(3) + Variable(audio_feature) - Variable(audio_feature_origin)
             audiopose =  posemodel(newdrive.squeeze().unsqueeze(0)) #
             audioposebn = bottleneckmodel(audiopose)
             output[0,:,:,:] = newdrive + sourceposebn.unsqueeze(2).unsqueeze(3) - audioposebn.unsqueeze(2).unsqueeze(3) # if we want to add old pose (of input) and substract pose info that's in the new bottleneck
