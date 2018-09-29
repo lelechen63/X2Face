@@ -180,7 +180,7 @@ class Pix2PixModel(nn.Module):
         super(Pix2PixModel, self).__init__()
 
         self.netG = define_G(3, 3, 64, 'unet_256', 'batch', False, 'xavier', [0])
-
+        print ("999")
     def forward(self, *cycles):
         print ('+++')
         # First one
