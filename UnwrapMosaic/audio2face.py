@@ -79,7 +79,7 @@ for sourcepath in sourcepaths:
         # Extract the driving audio features
         fullaudiopath = os.path.join(audio_path, imgpath)
         audio_data = load_img_and_audio(fullaudiopath)
-        print (audio_data['image'].shape)
+        ggt =  audio_data['image']
         audio_img = Variable(audio_data['image'], volatile=True).unsqueeze(0)
         audio_feature = audio_data['audio'].cpu().numpy().reshape(1,-1)
         if not scalar is None:
@@ -104,9 +104,11 @@ for sourcepath in sourcepaths:
         gg = result.squeeze().data.permute(1,2,0).numpy()
         cc += 1
         imsave('/mnt/ssd0/project/lchen63/X2Face/UnwrapMosaic/results/%d.jpg'%cc,gg )
-
+        ggt = ggt.transpose((1,2,0))
         print (result.size())
+        imsave('/mnt/ssd0/project/lchen63/X2Face/UnwrapMosaic/results/gt_%d.jpg'%cc,ggt )
         handle.remove()
+        
         img_to_show_all = np.hstack((result.squeeze().data.permute(1,2,0).numpy(), img_to_show_all))
         if img_gt_gen.shape == (0,2560,3):
             gt_ims = np.hstack((audio_img.squeeze().data.permute(1,2,0).numpy(), gt_ims))
