@@ -22,14 +22,16 @@ class UnwrappedFaceWeightedAverage(nn.Module):
 
 
 	def forward(self, target_pose, *input_imgs):
+		print ('+++')
 		xs = np.linspace(-1,1,input_imgs[0].size(2))
 		xs = np.meshgrid(xs, xs)
 		xs = np.stack(xs, 2)
-
+		print ('---')
 		xs = torch.Tensor(xs).unsqueeze(0).repeat(input_imgs[0].size(0), 1,1,1).cuda()
 
 		input_imgs_t = [0] * len(input_imgs)
 		confidence = [0] * len(input_imgs)
+		print ('***')
 		for i in range(0, len(input_imgs)):
 			temp = self.pix2pixUnwrapped(input_imgs[i])[0]
 			sampler = temp[:,0:2,:,:]
@@ -37,7 +39,7 @@ class UnwrappedFaceWeightedAverage(nn.Module):
 			input_imgs_t[i] = nn.Tanh()(sampler).permute(0,2,3,1) + Variable(xs, requires_grad=False)
 			input_imgs_t[i] = nn.functional.grid_sample(input_imgs[i],  input_imgs_t[i]).unsqueeze(4)
 			input_imgs_t[i] = input_imgs_t[i] * confidence[i].expand_as(input_imgs_t[i])
-			
+		print ('##3')
 		# Combine multiple images
 		input_imgs = torch.cat(input_imgs_t, 4)
 		input_imgs = input_imgs.sum(4) 
@@ -46,17 +48,17 @@ class UnwrappedFaceWeightedAverage(nn.Module):
 		confidences = confidences.sum(4)
 
 		result_xc = input_imgs / confidences.expand_as(input_imgs)
-		
+		print ('``````')
 		sampler = self.pix2pixSampler(target_pose)[0]
 
-		
+		print ('---__')
 		if sampler.size(1) == 2:
 			sampler_xy = nn.Tanh()(sampler)
 			sampler_xy = sampler_xy.permute(0,2,3,1) + Variable(xs, requires_grad=False)
 
 			sampled_image = nn.functional.grid_sample(result_xc, sampler_xy)
 			return sampled_image
-
+		print ('@@@@@@@@@@')
 		sampler_xy = nn.Tanh()(sampler[:,0:2,:,:])
 		#print(confidences.size(), xs.size())
 		stddev = nn.Softplus().cuda()(sampler[:,2:,:,:]).clamp(max=40)
