@@ -46,7 +46,7 @@ posemodel._modules['0'].bias.data = p_dict_pre['posefrombottle.bias'].cpu()
 bottleneckmodel = nn.Sequential(nn.Linear(3, 128, bias=False), nn.BatchNorm1d(128))
 b_dict_pre = torch.load(BASE_MODEL + '/posetobottle.pth')['state_dict']
 bottleneckmodel.load_state_dict(b_dict_pre)
-
+print ('++++')
 model = model.cuda()
 modelfortargetpose = modelfortargetpose.cuda()
 posemodel = posemodel.cuda()
@@ -56,7 +56,7 @@ model.eval()
 modelfortargetpose.eval()
 posemodel.eval()
 bottleneckmodel.eval()
-
+print ('-----')
 # load linear regression from audio features to driving vector space
 linearregression = joblib.load(BASE_MODEL + '/linearregression_scaledTrue_7000.pkl')
 scalar = joblib.load(BASE_MODEL + '/scaler_7000.pkl')
@@ -105,7 +105,7 @@ for sourcepath in sourcepaths:
         img_gt_gen = np.vstack((img_gt_gen, gt_ims))
     img_gt_gen = np.vstack((img_gt_gen, img_to_show_all))
 plt.rcParams["figure.figsize"] = [14,14]
-plt.imshow(img_gt_gen)
+# plt.imshow(img_gt_gen)
 plt.savefig('/mnt/ssd0/project/lchen63/X2Face/UnwrapMosaic/results/1.jpg')
 
 print('Top row: Frames corresponding to driving audio')
