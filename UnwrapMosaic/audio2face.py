@@ -105,7 +105,7 @@ for sourcepath in sourcepaths:
         cc += 1
         imsave('/mnt/ssd0/project/lchen63/X2Face/UnwrapMosaic/results/%d.jpg'%cc,gg )
         print (ggt.shape)
-        ggt = np.transpose(ggt, (1,2, 0))
+        ggt = ggt.transpose((1,2, 0))
         print (result.size())
         imsave('/mnt/ssd0/project/lchen63/X2Face/UnwrapMosaic/results/gt_%d.jpg'%cc,ggt )
         handle.remove()
