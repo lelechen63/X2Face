@@ -13,6 +13,7 @@ print ('1')
 def load_img_and_audio(file_path):
     transform = Compose([Scale((256,256)), ToTensor()])
     img = Image.open(file_path).convert('RGB')
+    print (img)
     img = transform(img)
     audio_label_path = str(file_path).replace('audio_faces', 'audio_features').replace('jpg','npz')
     audio_feature = torch.Tensor(np.load(audio_label_path)['audio_feat'])
