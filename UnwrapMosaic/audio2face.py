@@ -9,7 +9,7 @@ from torch.autograd import Variable
 from UnwrappedFace import UnwrappedFaceWeightedAverage, BottleneckFromNet
 from sklearn.externals import joblib
 from torchvision.transforms import Compose, Scale, ToTensor
-
+os.environ["CUDA_VISIBLE_DEVICES"] = '1'
 def load_img_and_audio(file_path):
     transform = Compose([Scale((256,256)), ToTensor()])
     img = Image.open(file_path).convert('RGB')
@@ -27,7 +27,7 @@ audio_path = 'examples/audio_faces/Peter_Capaldi/1.6/uAgUjSqIj7U'
 imgpaths = os.listdir(audio_path)
 
 # loading models
-BASE_MODEL = '/scratch/shared/slow/ow/eccv/2018/release_models/' # Change to your path
+BASE_MODEL = '/mnt/ssd0/dat/lchen63/release_models/' # Change to your path
 model_path = BASE_MODEL + 'x2face_model.pth'
 model = UnwrappedFaceWeightedAverage(output_num_channels=2, input_num_channels=3,inner_nc=128)
 model.load_state_dict(torch.load(model_path)['state_dict'])
