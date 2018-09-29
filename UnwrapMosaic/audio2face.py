@@ -104,10 +104,7 @@ for sourcepath in sourcepaths:
         gg = result.squeeze().data.permute(1,2,0).numpy()
         cc += 1
         imsave('/mnt/ssd0/project/lchen63/X2Face/UnwrapMosaic/results/%d.jpg'%cc,gg )
-        print (ggt.shape)
-        print (type(ggt))
-        ggt = ggt.transpose((1,2, 0))
-        print (result.size())
+        ggt = ggt.permute((1,2, 0))
         imsave('/mnt/ssd0/project/lchen63/X2Face/UnwrapMosaic/results/gt_%d.jpg'%cc,ggt )
         handle.remove()
         
