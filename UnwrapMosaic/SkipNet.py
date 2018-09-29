@@ -178,7 +178,7 @@ def print_network(net):
 class Pix2PixModel(nn.Module):
     def __init__(self):
         super(Pix2PixModel, self).__init__()
-
+        print ('8888')
         self.netG = define_G(3, 3, 64, 'unet_256', 'batch', False, 'xavier', [0])
         print ("999")
     def forward(self, *cycles):
