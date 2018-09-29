@@ -32,9 +32,9 @@ model_path = BASE_MODEL + 'x2face_model.pth'
 print ('2')
 model = UnwrappedFaceWeightedAverage(output_num_channels=2, input_num_channels=3,inner_nc=128)
 print('+++')
-model.load_state_dict(torch.load(model_path)['state_dict'])
+model.load_state_dict(torch.load(model_path, map_location=lambda storage, loc: storage)['state_dict'])
 print ('3')
-s_dict = torch.load(model_path)
+s_dict = torch.load(model_path, map_location=lambda storage, loc: storage)
 modelfortargetpose = BottleneckFromNet()
 state = modelfortargetpose.state_dict()
 s_dict = {k: v for k, v in s_dict['state_dict'].items() if k in state.keys()}
@@ -42,12 +42,12 @@ state.update(s_dict)
 modelfortargetpose.load_state_dict(state)
 
 posemodel = nn.Sequential(nn.Linear(128, 3))
-p_dict_pre = torch.load(BASE_MODEL + '/posereg.pth')['state_dict']
+p_dict_pre = torch.load(BASE_MODEL + '/posereg.pth', map_location=lambda storage, loc: storage)['state_dict']
 posemodel._modules['0'].weight.data = p_dict_pre['posefrombottle.weight'].cpu()
 posemodel._modules['0'].bias.data = p_dict_pre['posefrombottle.bias'].cpu()
 
 bottleneckmodel = nn.Sequential(nn.Linear(3, 128, bias=False), nn.BatchNorm1d(128))
-b_dict_pre = torch.load(BASE_MODEL + '/posetobottle.pth')['state_dict']
+b_dict_pre = torch.load(BASE_MODEL + '/posetobottle.pth', map_location=lambda storage, loc: storage)['state_dict']
 bottleneckmodel.load_state_dict(b_dict_pre)
 print ('++++')
 model = model
