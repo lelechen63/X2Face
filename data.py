@@ -150,5 +150,5 @@ def lists(name ):
 
 
 imgs, name = listdir('EzraMiller')
-generating_landmark_lips(imgs, name):
+generating_landmark_lips(imgs, name)
 
