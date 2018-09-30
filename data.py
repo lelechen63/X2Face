@@ -3,7 +3,6 @@ import argparse
 from imutils import face_utils
 import dlib
 import cv2
-import matplotlib.pyplot as plt
 import os, fnmatch, shutil
 from random import shuffle
 from copy import deepcopy
@@ -21,7 +20,6 @@ SK = np.reshape(S, [1, S.shape[0], 68*2])
       
 def crop_image(image_path):
     
-
   
     image = cv2.imread(image_path)
 
@@ -139,3 +137,18 @@ def generating_landmark_lips(list, name):
         except:
             print ('====================================')
             continue
+
+
+
+def lists(name ):
+
+
+    imgs = os.listdir(os.path.join( '/u/lchen63/data/images/', name))
+    imgs = sorted(imgs)
+
+    return imgs, name
+
+
+imgs, name = listdir('EzraMiller')
+generating_landmark_lips(imgs, name):
+
