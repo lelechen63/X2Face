@@ -7,6 +7,7 @@ import os, fnmatch, shutil
 from random import shuffle
 from copy import deepcopy
 import pickle
+from skimage import transform as tf
 
 
 detector = dlib.get_frontal_face_detector()
