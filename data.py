@@ -145,7 +145,7 @@ def img_extracter(video_name):
     v_path = os.path.join(root_path, 'video', video_name + '.mp4')
 
     # img_path = os.path.join(root_path, 'images' , video_name+ '_%05d.jpg')
-    command = ' ffmpeg -i ' + v_path + ' -r 25 -vcodec copy   ' + os.path.join(root_path, 'images' , video_name+ '_%05d.jpg')
+    command = ' ffmpeg -i ' + v_path + ' -r 25 -qscale:v 2  ' + os.path.join(root_path, 'images' , video_name, video_name+ '_%05d.jpg')
     os.system(command)
 
 
