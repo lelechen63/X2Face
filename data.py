@@ -53,7 +53,7 @@ def crop_image(image_path):
 
 
 def generating_landmark_lips(lists, name):
-    global CC
+    CC =0
     root_path = '/u/lchen63/data'
     image_txt = lists
 
