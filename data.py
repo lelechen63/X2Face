@@ -130,7 +130,7 @@ def generating_landmark_lips(lists, name):
                 y =int(shape[inx][0])
                 cv2.circle(dst, (y, x), 1, (0, 0, 255), -1)
             cv2.imwrite(landmark_path.replace('.npy','.jpg'), dst)
-            shape, _, _ = normLmarks(shape)
+            # shape, _, _ = normLmarks(shape)
             shape = shape.reshape(68,2)
             np.save(landmark_path, shape)
         CC += 1
