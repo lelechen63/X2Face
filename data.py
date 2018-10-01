@@ -110,6 +110,7 @@ def generating_landmark_lips(lists, name):
 
             shape = predictor(gray, rect)
             shape = face_utils.shape_to_np(shape)
+            print (shape)
             (x, y, w, h) = cv2.boundingRect(shape[48:,:])
 
             center_x = x + int(0.5 * w)
