@@ -24,6 +24,8 @@ def mat2npy(path):
     print (imdb[0,1])
     tt = imdb[0,1][1]
     print (tt.shape)
+    audio = tt[:,0]
+    print (audio.shape)
 mat2npy('/u/lchen63/data/audio/EzraMiller/audio.mat')
 
 
