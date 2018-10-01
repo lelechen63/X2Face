@@ -1,4 +1,4 @@
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import numpy as np
 import torch.nn as nn
 import os
@@ -16,6 +16,7 @@ import sys
 print ('1')
 def mat2npy(path):
     matx = loadmat(path)
+    print (matx)
 
 mat2npy('/u/lchen63/data/audio/EzraMiller/audio.mat')
 
