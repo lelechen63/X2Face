@@ -29,7 +29,7 @@ def mat2npy(path):
     print (audio.shape)
 
     d = np.load('examples/audio_features/Cristin_Milioti/1.6/IblJpk1GDZA/0004575.npz')
-    print (d)
+    print (d['audio_feat'])
 mat2npy('/u/lchen63/data/audio/EzraMiller/audio.mat')
 
 
