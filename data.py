@@ -162,7 +162,7 @@ def audio_extractor(video_name):
     v_path = os.path.join(root_path, 'video', video_name + '.mp4')
 
     # img_path = os.path.join(root_path, 'images' , video_name+ '_%05d.jpg')
-    command = ' ffmpeg -i ' + v_path + ' -ar 16000  -ac 1 -af lowpass=3000,highpass=200 ' + os.path.join(root_path, 'audio' , video_name+ '.wav')
+    command = ' ffmpeg -i ' + v_path + ' -ar 16000  -ac 1 -af lowpass=3000,highpass=200 -y ' + os.path.join(root_path, 'audio' , video_name+ '.wav')
     os.system(command)
 
 
