@@ -16,9 +16,8 @@ import sys
 print ('1')
 def mat2npy(path):
     matx = loadmat(path)
-    print (matx)
     print (type(matx))
-
+    print (matx.keys())
 mat2npy('/u/lchen63/data/audio/EzraMiller/audio.mat')
 
 
