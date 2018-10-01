@@ -140,7 +140,7 @@ def generating_landmark_lips(lists, name):
         #     print ('====================================')
         #     continue
 
-def img_extracter(video_name):
+def img_extractor(video_name):
     root_path = '/u/lchen63/data'
     v_path = os.path.join(root_path, 'video', video_name + '.mp4')
 
@@ -157,6 +157,15 @@ def img_extracter(video_name):
     #   print ('Read a new frame: ', success)
     #   count += 1
 
+def audio_extractor(video_name):
+    root_path = '/u/lchen63/data'
+    v_path = os.path.join(root_path, 'video', video_name + '.mp4')
+
+    # img_path = os.path.join(root_path, 'images' , video_name+ '_%05d.jpg')
+    command = ' ffmpeg -i ' + v_path + ' -ar 16000  -ac 1 -af lowpass=3000,highpass=200 ' + os.path.join(root_path, 'audio' , video_name+ '.wav')
+    os.system(command)
+
+
 
 def lists(name ):
 
@@ -166,7 +175,7 @@ def lists(name ):
 
     return imgs, name
 
-img_extracter('EzraMiller')
+audio_extractor('EzraMiller')
 # imgs, name = lists('EzraMiller')
 # generating_landmark_lips(imgs, name)
 
