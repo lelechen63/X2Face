@@ -27,6 +27,7 @@ def mat2npy(path):
     audio = tt[:,0]
     print (imdb[0,1][0])
     print (audio.shape)
+    print (audio)
 
     d = np.load('examples/audio_features/Cristin_Milioti/1.6/IblJpk1GDZA/0004575.npz')['audio_feat']
     print (d)
