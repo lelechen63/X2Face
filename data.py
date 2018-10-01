@@ -145,17 +145,17 @@ def img_extracter(video_name):
     v_path = os.path.join(root_path, 'video', video_name + '.mp4')
 
     # img_path = os.path.join(root_path, 'images' , video_name+ '_%05d.jpg')
-    # command = ' ffmpeg -i ' + v_path + ' -r 25  -bsf:v mjpeg2jpeg   ' + os.path.join(root_path, 'images' , video_name, video_name+ '_%05d.jpg')
-    # os.system(command)
-    vidcap = cv2.VideoCapture(v_path)
-    success,image = vidcap.read()
-    count = 1
-    success = True
-    while success:
-      cv2.imwrite(os.path.join(root_path, 'images' , video_name+ '_%05d.jpg')%count, image)     # save frame as JPEG file
-      success,image = vidcap.read()
-      print ('Read a new frame: ', success)
-      count += 1
+    command = ' ffmpeg -i ' + v_path + ' -r 25  -bsf:v mjpeg2png   ' + os.path.join(root_path, 'images' , video_name, video_name+ '_%05d.png')
+    os.system(command)
+    # vidcap = cv2.VideoCapture(v_path)
+    # success,image = vidcap.read()
+    # count = 1
+    # success = True
+    # while success:
+    #   cv2.imwrite(os.path.join(root_path, 'images' , video_name, video_name+ '_%05d.jpg')%count, image)     # save frame as JPEG file
+    #   success,image = vidcap.read()
+    #   print ('Read a new frame: ', success)
+    #   count += 1
 
 
 def lists(name ):
