@@ -96,7 +96,6 @@ def generating_landmark_lips(lists, name):
         print (landmark_path)
         print (lip_path)
 
-
         
         # try:
         
@@ -197,6 +196,9 @@ def lists(name ):
     return imgs, name
 
 # audio_extractor('EzraMiller')
-imgs, name = lists('EzraMiller')
-generating_landmark_lips(imgs, name)
+# imgs, name = lists('EzraMiller')
+# generating_landmark_lips(imgs, name)
 
+a = '/u/lchen63/project/X2Face/UnwrapMosaic/examples/audio_features/Cristin_Milioti/1.6/IblJpk1GDZA/0004575.npz'
+a = np.load(a)
+print a 
