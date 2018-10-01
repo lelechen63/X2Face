@@ -25,7 +25,10 @@ def mat2npy(path):
     tt = imdb[0,1][1]
     print (tt.shape)
     audio = tt[:,0]
+    print (imdb[0,1][0])
     print (audio.shape)
+
+    d = np.load('examples/audio_faces/Peter_Capaldi/1.6/uAgUjSqIj7U/0004575.npy')['audio']
 mat2npy('/u/lchen63/data/audio/EzraMiller/audio.mat')
 
 
