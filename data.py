@@ -47,8 +47,18 @@ def crop_image(image_path):
         scale =  163. / (2 * r)
        
         shape = ((shape - np.array([new_x,new_y])) * scale)
+
+
+        r = int(0.8 * h)
+        new_x = center_x - r
+        new_y = center_y - r
+        roi2 = image[new_y:new_y + 2 * r, new_x:new_x + 2 * r]
+        
+        roi2 = cv2.resize(roi2, (224,224), interpolation = cv2.INTER_AREA)
+       
+
     
-        return roi, shape 
+        return roi, shape, roi2
 
 
 
@@ -75,12 +85,17 @@ def generating_landmark_lips(lists, name):
             name + '/' + line.replace('jpg','npy')
         lip_path = os.path.join(root_path,'regions') + '/' + \
             name + '/' + line
+        face_path = os.path.join(root_path,'faces') + '/' + \
+            name + '/' + line
         print (landmark_path)
         print (lip_path)
+
+
         
         # try:
         
-        roi, landmark= crop_image(img_path)
+        roi, landmark, roi2 = crop_image(img_path)
+        cv2.imwrite(face_path, cv2.cvtColor(roi2, cv2.COLOR_BGR2GRAY))
         if  np.sum(landmark[37:39,1] - landmark[40:42,1]) < -9:
 
             # pts2 = np.float32(np.array([template[36],template[45],template[30]]))
@@ -175,7 +190,7 @@ def lists(name ):
 
     return imgs, name
 
-audio_extractor('EzraMiller')
-# imgs, name = lists('EzraMiller')
-# generating_landmark_lips(imgs, name)
+# audio_extractor('EzraMiller')
+imgs, name = lists('EzraMiller')
+generating_landmark_lips(imgs, name)
 
