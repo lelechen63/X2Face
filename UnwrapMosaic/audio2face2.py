@@ -18,6 +18,7 @@ def mat2npy(path):
     matx = loadmat(path)
     print (type(matx))
     print (matx.keys())
+    print (type(matx['imdb']))
 mat2npy('/u/lchen63/data/audio/EzraMiller/audio.mat')
 
 
