@@ -67,10 +67,16 @@ def generating_landmark_lips(lists, name):
     root_path = '/u/lchen63/data'
     image_txt = lists
 
+    if not os.path.exists(os.path.join(root_path,'regions',  name)):
+        os.mkdir(os.path.join(root_path,'regions',  name))
+    if not os.path.exists(os.path.join(root_path,'faces',  name)):
+        os.mkdir(os.path.join(root_path,'faces',  name))
     
     for line in image_txt:
         img_path = os.path.join(root_path, 'images',name, line)
         print (img_path)
+
+
 
        
 
