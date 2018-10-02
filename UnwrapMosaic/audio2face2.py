@@ -15,7 +15,7 @@ import sys
 from tempfile import TemporaryFile
 print ('1')
 def mat2npy(path):
-    outfile = 'examples/audio_features/test1/EzraMiller_00011.npz'
+    outfile = 'examples/audio_features/test1/EzraMiller_00011.np'
     matx = loadmat(path)
     print (type(matx))
     print (matx.keys())
@@ -30,7 +30,7 @@ def mat2npy(path):
     print (audio.shape)
     print (audio)
 
-    np.savez(outfile,imdb[0,1], audio )
+    np.save(outfile, audio )
 
 
 
@@ -47,8 +47,8 @@ def load_img_and_audio(file_path):
     transform = Compose([Scale((256,256)), ToTensor()])
     img = Image.open(file_path).convert('RGB')
     img = transform(img)
-    audio_label_path = str(file_path).replace('audio_faces', 'audio_features').replace('jpg','npz')
-    audio_feature = torch.Tensor(np.load(audio_label_path)[1])
+    audio_label_path = str(file_path).replace('audio_faces', 'audio_features').replace('jpg','np')
+    audio_feature = torch.Tensor(np.load(audio_label_path))
     return {'image' : img, 'audio' : audio_feature}
    # paths to source frames
 
