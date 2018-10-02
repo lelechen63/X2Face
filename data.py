@@ -220,7 +220,7 @@ def img2video(video_name):
     command = 'ffmpeg -i ' + v_path  + ' -i ' + audio_path + ' -vcodec copy  -acodec copy -y  ' + v_path.replace('.mp4','.mov')
     os.system(command)
 # img2video("PeterCapaldi_short")
-# audio_extractor('PeterCapaldi_short')
+audio_extractor('Eddie_Kaye_Thomas')
 
 
 def lists(name ):
@@ -232,6 +232,6 @@ def lists(name ):
     return imgs, name
 
 # audio_extractor('EzraMiller')
-imgs, name = lists('Eddie_Kaye_Thomas')
-generating_landmark_lips(imgs, name)
+# imgs, name = lists('Eddie_Kaye_Thomas')
+# generating_landmark_lips(imgs, name)
 
