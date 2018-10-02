@@ -163,8 +163,8 @@ def generating_landmark_lips(lists, name):
 def img_extractor(video_name):
 
     root_path = '/u/lchen63/data'
-    if not os.path.exists(os.path.join(root_path, 'video')):
-        os.mkdir(os.path.join(root_path, 'video'))
+    if not os.path.exists(os.path.join(root_path, 'images'), video_name):
+        os.mkdir(os.path.join(root_path, 'images'),video_name)
 
     v_path = os.path.join(root_path, 'video', video_name + '.mp4')
 
