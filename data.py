@@ -172,7 +172,7 @@ def img_extractor(video_name):
     #   success,image = vidcap.read()
     #   print ('Read a new frame: ', success)
     #   count += 1
-img_extractor('Elektra')
+img_extractor('Eddie_Kaye_Thomas')
 def audio_extractor(video_name):
     root_path = '/u/lchen63/data'
     v_path = os.path.join(root_path, 'video', video_name + '.mp4')
@@ -232,6 +232,6 @@ def lists(name ):
     return imgs, name
 
 # audio_extractor('EzraMiller')
-imgs, name = lists('Elektra')
+imgs, name = lists('Eddie_Kaye_Thomas')
 generating_landmark_lips(imgs, name)
 
