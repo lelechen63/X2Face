@@ -226,7 +226,7 @@ def img2video(video_name):
     print (command)
     # command = 'ffmpeg -i ' + video_name  + ' -i ' + audio_dir + ' -vcodec copy  -acodec copy -y  ' + video_name.replace('.mp4','.mov')
 
-img2video(PeterCapaldi_short)
+img2video("PeterCapaldi_short")
 # audio_extractor('PeterCapaldi_short')
 
 
