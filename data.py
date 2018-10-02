@@ -225,8 +225,8 @@ def img2video(video_name):
     command = 'ffmpeg -framerate 25  -i ' + img_path +  '/' + video_name + '_%05d.jpg ' + ' -c:v libx264 -y -vf format=yuv420p  -y ' + v_path
     print (command)
     os.system(command)
-    # command = 'ffmpeg -i ' + video_name  + ' -i ' + audio_dir + ' -vcodec copy  -acodec copy -y  ' + video_name.replace('.mp4','.mov')
-
+    command = 'ffmpeg -i ' + v_path  + ' -i ' + audio_dir + ' -vcodec copy  -acodec copy -y  ' + v_path.replace('.mp4','.mov')
+    os.system(command)
 img2video("PeterCapaldi_short")
 # audio_extractor('PeterCapaldi_short')
 
