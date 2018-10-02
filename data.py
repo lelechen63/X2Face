@@ -176,7 +176,7 @@ def img_extractor(video_name):
     #   success,image = vidcap.read()
     #   print ('Read a new frame: ', success)
     #   count += 1
-img_extractor('Peter_Capaldi')
+img_extractor('PeterCapaldi')
 def audio_extractor(video_name):
     root_path = '/u/lchen63/data'
     v_path = os.path.join(root_path, 'video', video_name + '.mp4')
@@ -184,7 +184,7 @@ def audio_extractor(video_name):
     # img_path = os.path.join(root_path, 'images' , video_name+ '_%05d.jpg')
     command = ' ffmpeg -i ' + v_path + ' -ar 16000  -ac 1  -y ' + os.path.join(root_path, 'audio' , video_name+ '.wav')
     os.system(command)
-
+audio_extractor('PeteCapaldi')
 
 
 def lists(name ):
