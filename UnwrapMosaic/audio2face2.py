@@ -134,9 +134,9 @@ for sourcepath in sourcepaths:
         result = model(source_img, source_img)
         gg = result.squeeze().data.permute(1,2,0).numpy()
         cc += 1
-        imsave('/mnt/ssd0/project/lchen63/X2Face/UnwrapMosaic/results/%d.jpg'%cc,gg )
+        imsave('results/%d.jpg'%cc,gg )
         ggt = ggt.permute(1,2, 0).numpy()
-        imsave('/mnt/ssd0/project/lchen63/X2Face/UnwrapMosaic/results/gt_%d.jpg'%cc,ggt )
+        imsave('results/gt_%d.jpg'%cc,ggt )
         handle.remove()
         
         img_to_show_all = np.hstack((result.squeeze().data.permute(1,2,0).numpy(), img_to_show_all))
@@ -147,7 +147,7 @@ for sourcepath in sourcepaths:
     img_gt_gen = np.vstack((img_gt_gen, img_to_show_all))
 plt.rcParams["figure.figsize"] = [14,14]
 # plt.imshow(img_gt_gen)
-plt.savefig('/mnt/ssd0/project/lchen63/X2Face/UnwrapMosaic/results/1.jpg')
+plt.savefig('results/1.jpg')
 
 print('Top row: Frames corresponding to driving audio')
 print('Bottom 3 rows: generated frames driven with audio features corresponding to top row')
