@@ -180,7 +180,7 @@ def img_extractor(video_name):
     #   success,image = vidcap.read()
     #   print ('Read a new frame: ', success)
     #   count += 1
-# img_extractor('PeterCapaldi')
+img_extractor('PeterCapaldi_short')
 def audio_extractor(video_name):
     root_path = '/u/lchen63/data'
     v_path = os.path.join(root_path, 'video', video_name + '.mp4')
@@ -196,8 +196,8 @@ def video_cut(video_name):
     command = 'ffmpeg -i '+ v_path + ' -vcodec copy -acodec copy -ss 00:00:53.000 -t 00:00:28.000 ' + new_v_path
 
     os.system(command)
-video_cut('PeterCapaldi')
-# audio_extractor('PeterCapaldi')
+# video_cut('PeterCapaldi')
+audio_extractor('PeterCapaldi_short')
 
 
 def lists(name ):
