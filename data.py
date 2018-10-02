@@ -193,7 +193,7 @@ def video_cut(video_name):
     v_path = os.path.join(root_path, 'video', video_name + '.mp4')
 
     new_v_path = os.path.join(root_path, 'video', video_name + '_short.mp4')
-    command = 'ffmpeg -i '+ v_path' -vcodec copy -acodec copy -ss 00:00:55.000 -t 00:00:28.000 ' + new_v_path
+    command = 'ffmpeg -i '+ v_path + ' -vcodec copy -acodec copy -ss 00:00:55.000 -t 00:00:28.000 ' + new_v_path
 
     os.system(command)
 video_cut('PeterCapaldi')
