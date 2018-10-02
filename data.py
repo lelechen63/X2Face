@@ -97,68 +97,68 @@ def generating_landmark_lips(lists, name):
         print (lip_path)
 
         
-        # try:
-        
-        roi, landmark, roi2 = crop_image(img_path)
-        cv2.imwrite(face_path, roi2)
-        if  np.sum(landmark[37:39,1] - landmark[40:42,1]) < -9:
+        try:
+            
+            roi, landmark, roi2 = crop_image(img_path)
+            cv2.imwrite(face_path, roi2)
+            if  np.sum(landmark[37:39,1] - landmark[40:42,1]) < -9:
 
-            # pts2 = np.float32(np.array([template[36],template[45],template[30]]))
-            template = np.load('../basics/base_68.npy')
-        else:
-            template = np.load('../basics/base_68_close.npy')
-        # pts2 = np.float32(np.vstack((template[27:36,:], template[39,:],template[42,:],template[45,:])))
-        pts2 = np.float32(template[27:45,:])
-        # pts2 = np.float32(template[17:35,:])
-        # pts1 = np.vstack((landmark[27:36,:], landmark[39,:],landmark[42,:],landmark[45,:]))
-        pts1 = np.float32(landmark[27:45,:])
-        # pts1 = np.float32(landmark[17:35,:])
-        tform = tf.SimilarityTransform()
-        tform.estimate( pts2, pts1)
-        dst = tf.warp(roi, tform, output_shape=(163, 163))
-
-        dst = np.array(dst * 255, dtype=np.uint8)
-        dst = dst[1:129,1:129,:]
-        cv2.imwrite(lip_path, dst)
-    
-
-        gray = cv2.cvtColor(dst, cv2.COLOR_BGR2GRAY)
-
-        # detect faces in the grayscale image
-        rects = detector(gray, 1)
-        for (i, rect) in enumerate(rects):
-
-            shape = predictor(gray, rect)
-            shape = face_utils.shape_to_np(shape)
-            print (shape)
-            (x, y, w, h) = cv2.boundingRect(shape[48:,:])
-
-            center_x = x + int(0.5 * w)
-
-            center_y = y + int(0.5 * h)
-
-            if w > h:
-                r = int(0.65 * w)
+                # pts2 = np.float32(np.array([template[36],template[45],template[30]]))
+                template = np.load('../basics/base_68.npy')
             else:
-                r = int(0.65 * h)
-            new_x = center_x - r
-            new_y = center_y - r
-            roi = dst[new_y:new_y + 2 * r, new_x:new_x + 2 * r]
+                template = np.load('../basics/base_68_close.npy')
+            # pts2 = np.float32(np.vstack((template[27:36,:], template[39,:],template[42,:],template[45,:])))
+            pts2 = np.float32(template[27:45,:])
+            # pts2 = np.float32(template[17:35,:])
+            # pts1 = np.vstack((landmark[27:36,:], landmark[39,:],landmark[42,:],landmark[45,:]))
+            pts1 = np.float32(landmark[27:45,:])
+            # pts1 = np.float32(landmark[17:35,:])
+            tform = tf.SimilarityTransform()
+            tform.estimate( pts2, pts1)
+            dst = tf.warp(roi, tform, output_shape=(163, 163))
 
-            for inx in range(len(shape)):
-                x=int(shape[inx][1])
-                y =int(shape[inx][0])
-                cv2.circle(dst, (y, x), 1, (0, 0, 255), -1)
-            cv2.imwrite(landmark_path.replace('.npy','.jpg'), dst)
-            # shape, _, _ = normLmarks(shape)
-            shape = shape.reshape(68,2)
-            np.save(landmark_path, shape)
-        CC += 1
+            dst = np.array(dst * 255, dtype=np.uint8)
+            dst = dst[1:129,1:129,:]
+            cv2.imwrite(lip_path, dst)
+        
+
+            gray = cv2.cvtColor(dst, cv2.COLOR_BGR2GRAY)
+
+            # detect faces in the grayscale image
+            rects = detector(gray, 1)
+            for (i, rect) in enumerate(rects):
+
+                shape = predictor(gray, rect)
+                shape = face_utils.shape_to_np(shape)
+                print (shape)
+                (x, y, w, h) = cv2.boundingRect(shape[48:,:])
+
+                center_x = x + int(0.5 * w)
+
+                center_y = y + int(0.5 * h)
+
+                if w > h:
+                    r = int(0.65 * w)
+                else:
+                    r = int(0.65 * h)
+                new_x = center_x - r
+                new_y = center_y - r
+                roi = dst[new_y:new_y + 2 * r, new_x:new_x + 2 * r]
+
+                for inx in range(len(shape)):
+                    x=int(shape[inx][1])
+                    y =int(shape[inx][0])
+                    cv2.circle(dst, (y, x), 1, (0, 0, 255), -1)
+                cv2.imwrite(landmark_path.replace('.npy','.jpg'), dst)
+                # shape, _, _ = normLmarks(shape)
+                shape = shape.reshape(68,2)
+                np.save(landmark_path, shape)
+            CC += 1
+                
             
-            
-        # except:
-        #     print ('====================================')
-        #     continue
+        except:
+            print ('====================================')
+            continue
 
 def img_extractor(video_name):
 
