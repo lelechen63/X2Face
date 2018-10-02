@@ -71,20 +71,11 @@ def generating_landmark_lips(lists, name):
         os.mkdir(os.path.join(root_path,'regions',  name))
     if not os.path.exists(os.path.join(root_path,'faces',  name)):
         os.mkdir(os.path.join(root_path,'faces',  name))
-    
+    if not os.path.exists(os.path.join(root_path,'landmark1d') + '/' + name):
+            os.mkdir(os.path.join(root_path,'landmark1d') + '/' + name)
     for line in image_txt:
         img_path = os.path.join(root_path, 'images',name, line)
-        print (img_path)
-
-
-
-       
-
-        if not os.path.exists(os.path.join(root_path,'regions') + '/' + name):
-            os.mkdir(os.path.join(root_path,'regions') + '/' +  name)
-
-        if not os.path.exists(os.path.join(root_path,'landmark1d') + '/' + name):
-            os.mkdir(os.path.join(root_path,'landmark1d') + '/' + name)
+        
 
        
         landmark_path = os.path.join(root_path,'landmark1d') + '/' + \
@@ -95,12 +86,13 @@ def generating_landmark_lips(lists, name):
             name + '/' + line
         print (landmark_path)
         print (lip_path)
-
+        print (face_path)
         
         try:
             
             roi, landmark, roi2 = crop_image(img_path)
             cv2.imwrite(face_path, roi2)
+            print (face_path)
             if  np.sum(landmark[37:39,1] - landmark[40:42,1]) < -9:
 
                 # pts2 = np.float32(np.array([template[36],template[45],template[30]]))
