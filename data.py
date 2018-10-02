@@ -49,7 +49,7 @@ def crop_image(image_path):
         shape = ((shape - np.array([new_x,new_y])) * scale)
 
 
-        r = int(0.8 * h)
+        r = int(0.85 * h)
         new_x = center_x - r
         new_y = center_y - r
         roi2 = image[new_y:new_y + 2 * r, new_x:new_x + 2 * r]
@@ -100,7 +100,7 @@ def generating_landmark_lips(lists, name):
         # try:
         
         roi, landmark, roi2 = crop_image(img_path)
-        cv2.imwrite(face_path, cv2.cvtColor(roi2, cv2.COLOR_BGR2GRAY))
+        cv2.imwrite(face_path, roi2)
         if  np.sum(landmark[37:39,1] - landmark[40:42,1]) < -9:
 
             # pts2 = np.float32(np.array([template[36],template[45],template[30]]))
