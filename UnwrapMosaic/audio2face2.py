@@ -12,9 +12,10 @@ from scipy.misc import imsave
 os.environ["CUDA_VISIBLE_DEVICES"] = ''
 from scipy.io import loadmat
 import sys
-
+from tempfile import TemporaryFile
 print ('1')
 def mat2npy(path):
+    outfile = 'examples/audio_features/test1/test1.npz'
     matx = loadmat(path)
     print (type(matx))
     print (matx.keys())
@@ -29,9 +30,13 @@ def mat2npy(path):
     print (audio.shape)
     print (audio)
 
-    d = np.load('examples/audio_features/Cristin_Milioti/1.6/IblJpk1GDZA/0004575.npz')['audio_feat']
-    print (d)
-    print (d.shape)
+    np.savez(outfile,imdb[0,1], audio )
+
+
+
+    # d = np.load('examples/audio_features/Cristin_Milioti/1.6/IblJpk1GDZA/0004575.npz')['audio_feat']
+    # print (d)
+    # print (d.shape)
 mat2npy('/u/lchen63/data/audio/EzraMiller/audio.mat')
 
 
@@ -46,6 +51,7 @@ def load_img_and_audio(file_path):
     audio_feature = torch.Tensor(np.load(audio_label_path)['audio_feat'])
     return {'image' : img, 'audio' : audio_feature}
    # paths to source frames
+
 sourcepaths= ['/u/lchen63/data/faces/EzraMiller/EzraMiller_00076.jpg']
 
 # path to frames corresponding to driving audio features
