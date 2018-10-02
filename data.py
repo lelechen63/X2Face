@@ -172,7 +172,7 @@ def img_extractor(video_name):
     #   success,image = vidcap.read()
     #   print ('Read a new frame: ', success)
     #   count += 1
-img_extractor('Eddie_Kaye_Thomas')
+# img_extractor('Eddie_Kaye_Thomas')
 def audio_extractor(video_name):
     root_path = '/u/lchen63/data'
     v_path = os.path.join(root_path, 'video', video_name + '.mp4')
