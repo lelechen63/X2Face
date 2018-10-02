@@ -48,7 +48,7 @@ def load_img_and_audio(file_path):
     img = Image.open(file_path).convert('RGB')
     img = transform(img)
     audio_label_path = str(file_path).replace('audio_faces', 'audio_features').replace('jpg','npz')
-    audio_feature = torch.Tensor(np.load(audio_label_path)['audio_feat'])
+    audio_feature = torch.Tensor(np.load(audio_label_path))
     return {'image' : img, 'audio' : audio_feature}
    # paths to source frames
 
