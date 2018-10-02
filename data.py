@@ -240,6 +240,6 @@ def lists(name ):
     return imgs, name
 
 # audio_extractor('EzraMiller')
-imgs, name = lists('PeterCapaldi_short')
+imgs, name = lists('EzraMiller')
 generating_landmark_lips(imgs, name)
 
