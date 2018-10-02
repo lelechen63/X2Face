@@ -180,7 +180,7 @@ def img_extractor(video_name):
     #   success,image = vidcap.read()
     #   print ('Read a new frame: ', success)
     #   count += 1
-img_extractor('PeterCapaldi_short')
+# img_extractor('PeterCapaldi_short')
 def audio_extractor(video_name):
     root_path = '/u/lchen63/data'
     v_path = os.path.join(root_path, 'video', video_name + '.mp4')
@@ -196,8 +196,38 @@ def video_cut(video_name):
     command = 'ffmpeg -i '+ v_path + ' -vcodec copy -acodec copy -ss 00:00:53.000 -t 00:00:28.000 ' + new_v_path
 
     os.system(command)
+
+# def image_to_video(sample_dir = None, video_name = None):
+    
+#     command = 'ffmpeg -framerate 25  -i ' + sample_dir +  '/%05d.png -c:v libx264 -y -vf format=yuv420p ' + video_name 
+#     #ffmpeg -framerate 25 -i real_%d.png -c:v libx264 -y -vf format=yuv420p real.mp4
+#     print (command)
+#     os.system(command)
+
+# def add_audio(video_name=None, audio_dir = None):
+
+#     command = 'ffmpeg -i ' + video_name  + ' -i ' + audio_dir + ' -vcodec copy  -acodec copy -y  ' + video_name.replace('.mp4','.mov')
+#     #ffmpeg -i /mnt/disk1/dat/lchen63/lrw/demo/new/resutls/results.mp4 -i /mnt/disk1/dat/lchen63/lrw/demo/new/audio/obama.wav -codec copy -c:v libx264 -c:a aac -b:a 192k  -shortest -y /mnt/disk1/dat/lchen63/lrw/demo/new/resutls/results.mov
+#     # ffmpeg -i gan_r_high_fake.mp4 -i /mnt/disk1/dat/lchen63/lrw/demo/audio/obama.wav -vcodec copy  -acodec copy -y   gan_r_high_fake.mov
+
+#     print (command)
+#     os.system(command)
+
+
 # video_cut('PeterCapaldi')
-audio_extractor('PeterCapaldi_short')
+def img2video(video_name):
+    root_path = '/u/lchen63/data'
+    img_path = os.path.join(root_path, 'images' , video_name)
+
+    v_path = os.path.join(root_path, 'video' , video_name + '_compose.mp4')
+    audio_path = os.path.join(root_path, 'audio' , video_name  + '.wav')
+
+    command = 'ffmpeg -framerate 25  -i ' + img_path +  '/' + video_name + '_%05d.png  -i ' + audio_path + ' -c:v libx264 -y -vf format=yuv420p -acodec copy -y ' + v_path
+    print (command)
+    # command = 'ffmpeg -i ' + video_name  + ' -i ' + audio_dir + ' -vcodec copy  -acodec copy -y  ' + video_name.replace('.mp4','.mov')
+
+img2video(PeterCapaldi_short)
+# audio_extractor('PeterCapaldi_short')
 
 
 def lists(name ):
