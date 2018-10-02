@@ -15,7 +15,7 @@ import sys
 from tempfile import TemporaryFile
 print ('1')
 def mat2npy(path):
-    outfile = 'examples/audio_features/test1/test1.npz'
+    outfile = 'examples/audio_features/test1/EzraMiller_00011.npz'
     matx = loadmat(path)
     print (type(matx))
     print (matx.keys())
