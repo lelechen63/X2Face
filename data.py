@@ -176,7 +176,7 @@ def img_extractor(video_name):
     #   success,image = vidcap.read()
     #   print ('Read a new frame: ', success)
     #   count += 1
-
+img_extractor('Peter_Capaldi')
 def audio_extractor(video_name):
     root_path = '/u/lchen63/data'
     v_path = os.path.join(root_path, 'video', video_name + '.mp4')
@@ -199,6 +199,3 @@ def lists(name ):
 # imgs, name = lists('EzraMiller')
 # generating_landmark_lips(imgs, name)
 
-a = '/u/lchen63/project/X2Face/UnwrapMosaic/examples/audio_features/Cristin_Milioti/1.6/IblJpk1GDZA/0004575.npz'
-a = np.load(a)
-print a 
