@@ -220,7 +220,7 @@ def img2video(video_name):
     command = 'ffmpeg -i ' + v_path  + ' -i ' + audio_path + ' -vcodec copy  -acodec copy -y  ' + v_path.replace('.mp4','.mov')
     os.system(command)
 # img2video("PeterCapaldi_short")
-audio_extractor('Eddie_Kaye_Thomas')
+audio_extractor('Elektra')
 
 
 def lists(name ):
