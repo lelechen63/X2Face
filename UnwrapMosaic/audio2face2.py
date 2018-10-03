@@ -41,7 +41,7 @@ def mat2npy(path):
 
 # # sys.exit("Error message")
 
-def load_imdef load_img_and_audio(file_path):
+def load_img_and_audio(file_path):
     transform = Compose([Scale((256,256)), ToTensor()])
     img = Image.open(file_path).convert('RGB')
     img = transform(img)
