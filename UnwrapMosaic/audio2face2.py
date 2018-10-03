@@ -55,7 +55,7 @@ def load_img_and_audio(file_path):
     return {'image' : img, 'audio' : audio_feature}
    # paths to source frames
 
-sourcepaths= [('/u/lchen63/data/faces/Elektra/Elektra_00061.jpg', '/u/lchen63/data/audio/Elektra/Elektra_61.npy')]
+sourcepaths= [['/u/lchen63/data/faces/Elektra/Elektra_00061.jpg', '/u/lchen63/data/audio/Elektra/Elektra_61.npy']]
 
 # path to frames corresponding to driving audio features
 audio_path = 'examples/audio_faces/test1/'
