@@ -35,7 +35,7 @@ def mat2npy(path):
     # d = np.load('examples/audio_features/Cristin_Milioti/1.6/IblJpk1GDZA/0004575.npz')['audio_feat']
     # print (d)
     # print (d.shape)
-mat2npy('/u/lchen63/data/audio/Elektra/Elektra_61.mat')
+# mat2npy('/u/lchen63/data/audio/Elektra/Elektra_61.mat')
 
 
 
@@ -46,6 +46,8 @@ def load_img_and_audio(file_path):
     img_p = file_path[0]
 
     audio_p = file_path[1]
+    print (img_p)
+    print (audio_p)
     img = Image.open(img_p).convert('RGB')
     img = transform(img)
     # audio_label_path = str(file_path).replace('audio_faces', 'audio_features').replace('jpg','npy')
