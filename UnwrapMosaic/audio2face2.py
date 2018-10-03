@@ -59,7 +59,7 @@ def load_img_and_audio(file_path):
 sourcepaths= [['/u/lchen63/data/faces/Elektra/Elektra_00061.jpg', '/u/lchen63/data/audio/Elektra/Elektra_61.npy']]
 
 # path to frames corresponding to driving audio features
-audio_path = 'examples/audio_faces/test1/'
+audio_path = 'examples/audio_faces/Peter_Capaldi/1.6/uAgUjSqIj7U'
 imgpaths = os.listdir(audio_path)
 
 # loading models
