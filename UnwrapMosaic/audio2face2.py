@@ -35,11 +35,11 @@ def mat2npy(path):
     # d = np.load('examples/audio_features/Cristin_Milioti/1.6/IblJpk1GDZA/0004575.npz')['audio_feat']
     # print (d)
     # print (d.shape)
-mat2npy('/u/lchen63/data/audio/Eddie_Kaye_Thomas/Eddie_Kaye_Thomas_227.mat')
+# mat2npy('/u/lchen63/data/audio/Eddie_Kaye_Thomas/Eddie_Kaye_Thomas_227.mat')
 
 
 
-sys.exit("Error message")
+# sys.exit("Error message")
 
 def load_img_and_audio(file_path):
     transform = Compose([Scale((256,256)), ToTensor()])
@@ -64,7 +64,7 @@ def load_img_and_audio1(file_path):
     return {'image' : img, 'audio' : audio_feature}
    # paths to source frames
 
-sourcepaths= [['/u/lchen63/data/faces/Elektra/Elektra_00061.jpg', '/u/lchen63/data/audio/Elektra/Elektra_61.npy']]
+sourcepaths= [['/u/lchen63/data/faces/Eddie_Kaye_Thomas/Eddie_Kaye_Thomas_227.jpg', '/u/lchen63/data/audio/Eddie_Kaye_Thomas/Eddie_Kaye_Thomas_227.npy']]
 
 # path to frames corresponding to driving audio features
 audio_path = 'examples/audio_faces/Peter_Capaldi/1.6/uAgUjSqIj7U'
