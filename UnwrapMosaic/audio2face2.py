@@ -21,7 +21,9 @@ def mat2npy(path):
     print (matx.keys())
     imdb = matx['cf']
     print (imdb.shape)
-
+    audio = imdb[;,1]
+    outfile = path.replace(',mat', 'npy')
+    np.save(outfile, audio )
     # for i in range(1,11):
     #     tt = imdb[0,i][1]        
     #     audio = tt[:,0]
