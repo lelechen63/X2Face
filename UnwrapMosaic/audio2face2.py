@@ -43,6 +43,7 @@ def mat2npy(path):
 
 def load_img_and_audio(file_path):
     transform = Compose([Scale((256,256)), ToTensor()])
+    print (file_path)
     img_p = file_path[0]
 
     audio_p = file_path[1]
