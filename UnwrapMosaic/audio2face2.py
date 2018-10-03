@@ -20,13 +20,14 @@ def mat2npy(path):
     print (type(matx))
     print (matx.keys())
     print (type(matx['imdb']))
-    imdb = matx['imdb']
+    imdb = matx['cf']
     print (imdb.shape)
-    for i in range(1,11):
-        tt = imdb[0,i][1]        
-        audio = tt[:,0]
-        outfile = 'examples/audio_features/test1/EzraMiller_%05d.npy'%(i + 10)
-        np.save(outfile, audio )
+    
+    # for i in range(1,11):
+    #     tt = imdb[0,i][1]        
+    #     audio = tt[:,0]
+    #     outfile = 'examples/audio_features/test1/EzraMiller_%05d.npy'%(i + 10)
+    #     np.save(outfile, audio )
 
 
 
