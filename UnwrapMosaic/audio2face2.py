@@ -99,6 +99,8 @@ scalar = None
 img_gt_gen = np.empty((0,2560,3))
 cc = 0
 for sourcepath in sourcepaths:
+    print (sourcepath)
+    print ('===')
     img_to_show_all = np.empty((256,0,3))
     gt_ims = np.empty((256,0,3))
     source_data = load_img_and_audio(sourcepath)
