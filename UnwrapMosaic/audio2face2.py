@@ -41,11 +41,19 @@ def mat2npy(path):
 
 # # sys.exit("Error message")
 
-def load_img_and_audio(file_path):
+def load_imdef load_img_and_audio(file_path):
+    transform = Compose([Scale((256,256)), ToTensor()])
+    img = Image.open(file_path).convert('RGB')
+    img = transform(img)
+    audio_label_path = str(file_path).replace('audio_faces', 'audio_features').replace('jpg','npz')
+    audio_feature = torch.Tensor(np.load(audio_label_path)['audio_feat'])
+    return {'image' : img, 'audio' : audio_feature}
+
+
+def load_img_and_audio1(file_path):
     transform = Compose([Scale((256,256)), ToTensor()])
     print (file_path)
     img_p = file_path[0]
-
     audio_p = file_path[1]
     print (img_p)
     print (audio_p)
@@ -104,7 +112,7 @@ for sourcepath in sourcepaths:
     print ('===')
     img_to_show_all = np.empty((256,0,3))
     gt_ims = np.empty((256,0,3))
-    source_data = load_img_and_audio(sourcepath)
+    source_data = load_img_and_audio1(sourcepath)
     source_img = Variable(source_data['image']).unsqueeze(0)
     print ('======')
     audio_feature_source = source_data['audio'].cpu().numpy().reshape(1,-1)
