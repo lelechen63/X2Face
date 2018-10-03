@@ -19,10 +19,9 @@ def mat2npy(path):
     matx = loadmat(path)
     print (type(matx))
     print (matx.keys())
-    print (type(matx['imdb']))
     imdb = matx['cf']
     print (imdb.shape)
-    
+
     # for i in range(1,11):
     #     tt = imdb[0,i][1]        
     #     audio = tt[:,0]
