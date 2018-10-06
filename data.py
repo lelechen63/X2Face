@@ -251,7 +251,7 @@ def  read_pickle():
         img_path = os.path.join('/mnt/disk1/dat/lchen63/lrw/data/image' , test_data[i][0])
         
         audio_path = os.path.join(audio_path_root, tmp[0], tmp[1],tmp[2]+'.wav')
-        audio = librosa.load(audio_path, sr = 16000)
+        audio,_ = librosa.load(audio_path, sr = 16000)
         print (audio)
 
         librosa.output.write_wav(audio_path.replace('.wav' ,'_16000.wav'), audio, 16000)
