@@ -10,6 +10,7 @@ import pickle
 from skimage import transform as tf
 import scipy.io
 import librosa
+import csv
 
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor('../basics/shape_predictor_68_face_landmarks.dat')
@@ -240,6 +241,8 @@ def  read_pickle():
     test_data = pickle.load(_file)
     _file.close()
     count = 0
+    csv_file = open(os.path.join( dataset_dir ,'test.csv' ),'w')
+    csv_writer = csv.writer(csv_file, delimiter=',')
 
     data = []
     for i in range(0,len(test_data)):
@@ -264,11 +267,12 @@ def  read_pickle():
         gg.append(audio_path.replace('.wav' ,'_16000.wav'))
         gg.append(test_data[i][1])
         data.append(gg)
-
+        csv_writer.writerow(gg)
         count += 1
         if count == 100:
             break
-    scipy.io.savemat(os.path.join( dataset_dir ,'test.mat' ), mdict={'test_data': data})
+
+    # scipy.io.savemat(os.path.join( dataset_dir ,'test.mat' ), mdict={'test_data': data})
       
 
 read_pickle()
