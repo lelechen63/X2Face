@@ -18,10 +18,7 @@ print ('1')
 def mat2npy(path):
 
     matx = loadmat(path)
-    print (type(matx))
-    print (matx.keys())
     imdb = matx['cf']
-    print (imdb.shape)
     audio = imdb[:,1]
     outfile = path.replace('mat', 'npy')
     np.save(outfile, audio )
@@ -136,49 +133,48 @@ for gg in sourcepaths:
     audio_feature_origin = linearregression.predict(audio_feature_source)
     print ('+++')
     audio_feature_origin = torch.Tensor(audio_feature_origin).unsqueeze(2).unsqueeze(2)
-    for imgpath in imgpaths:
         
-        # Extract the driving audio features
-        # fullaudiopath = os.path.join(audio_path, imgpath)
-        audio_data = load_img_and_audio1(imgpath)
-        ggt =  audio_data['image']
-        audio_img = Variable(audio_data['image'], volatile=True).unsqueeze(0)
-        audio_feature = audio_data['audio'].cpu().numpy().reshape(1,-1)
-        if not scalar is None:
-            audio_feature = scalar.transform(audio_feature)
-            audio_feature_origin = scalar.transform(audio_feature_origin)
-        audio_feature = linearregression.predict(audio_feature)
-        audio_feature = torch.Tensor(audio_feature).unsqueeze(2).unsqueeze(2)
-        
-        sourcebn = modelfortargetpose(source_img)
-        sourcepose = posemodel(sourcebn.unsqueeze(0))
-        sourceposebn = bottleneckmodel(sourcepose)
+    # Extract the driving audio features
+    # fullaudiopath = os.path.join(audio_path, imgpath)
+    audio_data = load_img_and_audio1(imgpaths)
+    ggt =  audio_data['image']
+    audio_img = Variable(audio_data['image'], volatile=True).unsqueeze(0)
+    audio_feature = audio_data['audio'].cpu().numpy().reshape(1,-1)
+    if not scalar is None:
+        audio_feature = scalar.transform(audio_feature)
+        audio_feature_origin = scalar.transform(audio_feature_origin)
+    audio_feature = linearregression.predict(audio_feature)
+    audio_feature = torch.Tensor(audio_feature).unsqueeze(2).unsqueeze(2)
     
-        def update_bottleneck(self, input, output):
-            newdrive = sourcebn.unsqueeze(0).unsqueeze(2).unsqueeze(3) + Variable(audio_feature) - Variable(audio_feature_origin)
-            audiopose =  posemodel(newdrive.squeeze().unsqueeze(0)) #
-            audioposebn = bottleneckmodel(audiopose)
-            output[0,:,:,:] = newdrive + sourceposebn.unsqueeze(2).unsqueeze(3) - audioposebn.unsqueeze(2).unsqueeze(3) # if we want to add old pose (of input) and substract pose info that's in the new bottleneck
+    sourcebn = modelfortargetpose(source_img)
+    sourcepose = posemodel(sourcebn.unsqueeze(0))
+    sourceposebn = bottleneckmodel(sourcepose)
 
-        # Add a forward hook to update the model's bottleneck
-        handle = model.pix2pixSampler.netG.model.submodule.submodule.submodule.submodule.submodule.submodule.submodule.down[1].register_forward_hook(update_bottleneck)
-        result = model(source_img, source_img)
-        gg = result.squeeze().data.permute(1,2,0).numpy()
-        cc += 1
-        imsave(sourcepath[1].replace('wav','jpg'),gg )
-        ggt = ggt.permute(1,2, 0).numpy()
-        imsave('results/gt_%d.jpg'%cc,ggt )
-        handle.remove()
-        
-        img_to_show_all = np.hstack((result.squeeze().data.permute(1,2,0).numpy(), img_to_show_all))
-        if img_gt_gen.shape == (0,2560,3):
-            gt_ims = np.hstack((audio_img.squeeze().data.permute(1,2,0).numpy(), gt_ims))
-    if img_gt_gen.shape == (0,2560,3):
-        img_gt_gen = np.vstack((img_gt_gen, gt_ims))
-    img_gt_gen = np.vstack((img_gt_gen, img_to_show_all))
-plt.rcParams["figure.figsize"] = [14,14]
-# plt.imshow(img_gt_gen)
-plt.savefig('results/1.jpg')
+    def update_bottleneck(self, input, output):
+        newdrive = sourcebn.unsqueeze(0).unsqueeze(2).unsqueeze(3) + Variable(audio_feature) - Variable(audio_feature_origin)
+        audiopose =  posemodel(newdrive.squeeze().unsqueeze(0)) #
+        audioposebn = bottleneckmodel(audiopose)
+        output[0,:,:,:] = newdrive + sourceposebn.unsqueeze(2).unsqueeze(3) - audioposebn.unsqueeze(2).unsqueeze(3) # if we want to add old pose (of input) and substract pose info that's in the new bottleneck
+
+    # Add a forward hook to update the model's bottleneck
+    handle = model.pix2pixSampler.netG.model.submodule.submodule.submodule.submodule.submodule.submodule.submodule.down[1].register_forward_hook(update_bottleneck)
+    result = model(source_img, source_img)
+    gg = result.squeeze().data.permute(1,2,0).numpy()
+    cc += 1
+    imsave(sourcepath[1].replace('wav','jpg'),gg )
+    ggt = ggt.permute(1,2, 0).numpy()
+    imsave('results/gt_%d.jpg'%cc,ggt )
+    handle.remove()
+    
+    # img_to_show_all = np.hstack((result.squeeze().data.permute(1,2,0).numpy(), img_to_show_all))
+    # if img_gt_gen.shape == (0,2560,3):
+    #     gt_ims = np.hstack((audio_img.squeeze().data.permute(1,2,0).numpy(), gt_ims))
+    # if img_gt_gen.shape == (0,2560,3):
+    #     img_gt_gen = np.vstack((img_gt_gen, gt_ims))
+#     # img_gt_gen = np.vstack((img_gt_gen, img_to_show_all))
+# plt.rcParams["figure.figsize"] = [14,14]
+# # plt.imshow(img_gt_gen)
+# plt.savefig('results/1.jpg')
 
 print('Top row: Frames corresponding to driving audio')
 print('Bottom 3 rows: generated frames driven with audio features corresponding to top row')
