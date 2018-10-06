@@ -43,13 +43,13 @@ def get_sourcepaths(csv_file):
             mat2npy(audio_path)
             # audio_path = line[1]
             origial_img = imgpath[:-7] + '008.jpg'
-            origial_audio = line[1].replace('.wav','_8.npz')
+            origial_audio = line[1].replace('.wav','_8.npy')
 
             orgin.append(origial_img)
             orgin.append(origial_audio)
 
             tmp.append(imgpath)
-            tmp.append(line[1].replace('.wav','_' + fid + '.npz'))
+            tmp.append(line[1].replace('.wav','_' + fid + '.npy'))
             data.append([orgin,tmp])
     return data
 # data = get_sourcepaths('/u/lchen63/data/mat/test.csv')
