@@ -8,6 +8,7 @@ from random import shuffle
 from copy import deepcopy
 import pickle
 from skimage import transform as tf
+import scipy.io
 
 
 detector = dlib.get_frontal_face_detector()
@@ -231,7 +232,18 @@ def lists(name ):
 
     return imgs, name
 
+
+def  read_pickle():
+    dataset_dir = "/mnt/disk1/dat/lchen63/lrw/data/pickle/"
+    _file = open(os.path.join(dataset_dir, "new_img_full_gt_test.pkl"), "rb")
+    test_data = pickle.load(_file)
+    _file.close()
+
+    for i in range(0,1000):
+        print (test_data[i])
+
+read_pickle()
 # audio_extractor('EzraMiller')
-imgs, name = lists('Eddie_Kaye_Thomas')
-generating_landmark_lips(imgs, name)
+# imgs, name = lists('Eddie_Kaye_Thomas')
+# generating_landmark_lips(imgs, name)
 
