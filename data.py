@@ -234,13 +234,27 @@ def lists(name ):
 
 
 def  read_pickle():
+    audio_path_root = '/mnt/disk1/dat/lchen63/lrw/data/lrw_backup/audio'
     dataset_dir = "/mnt/disk1/dat/lchen63/lrw/data/pickle/"
     _file = open(os.path.join(dataset_dir, "new_img_full_gt_test.pkl"), "rb")
     test_data = pickle.load(_file)
     _file.close()
-
-    for i in range(0,1000):
-        print (test_data[i])
+    count = 0
+    for i in range(0,len(test_data)):
+        if test_data[i][1] < 7:
+            continue
+        tmp  = test_data[i][0].split('/')
+        print (tmp)
+        img_path = os.path.join('/mnt/disk1/dat/lchen63/lrw/data/regions' , test_data[i][0])
+        
+        audio_path = os.path.join(audio_path_root, tmp[0], tmp[1],tmp[2]+'.wav')
+        # print (test_data[i])
+        print(img_path)
+        print(audio_path)
+        count += 1
+        if count == 100:
+            break
+        
 
 read_pickle()
 # audio_extractor('EzraMiller')
