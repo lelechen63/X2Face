@@ -9,7 +9,7 @@ from copy import deepcopy
 import pickle
 from skimage import transform as tf
 import scipy.io
-
+import librosa
 
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor('../basics/shape_predictor_68_face_landmarks.dat')
@@ -251,12 +251,16 @@ def  read_pickle():
         img_path = os.path.join('/mnt/disk1/dat/lchen63/lrw/data/image' , test_data[i][0])
         
         audio_path = os.path.join(audio_path_root, tmp[0], tmp[1],tmp[2]+'.wav')
+        audio = librosa.load(audio_path, sr = 16000)
+
+        librosa.output.write_wav(audio_path.replace('.wav' ,'_16000.wav'), audio, 16000)
+
         # print (test_data[i])
         print(img_path)
         print(audio_path)
 
         gg.append(img_path)
-        gg.append(audio_path)
+        gg.append(audio_path.replace('.wav' ,'_16000.wav'))
         gg.append(test_data[i][1])
         data.append(gg)
 
