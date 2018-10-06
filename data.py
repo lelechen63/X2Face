@@ -295,7 +295,7 @@ def  read_pickle():
         data.append(gg)
         csv_writer.writerow(gg)
         count += 1
-        if count == 100:
+        if count == 10000:
             break
 
     # scipy.io.savemat(os.path.join( dataset_dir ,'test.mat' ), mdict={'test_data': data})
