@@ -162,6 +162,8 @@ for gg in sourcepaths:
     gg = result.squeeze().data.permute(1,2,0).numpy()
     cc += 1
     imsave(sourcepath[1].replace('npy','jpg'),gg )
+    print (sourcepath[1].replace('npy','jpg'))
+    print ('=====================')
     # ggt = ggt.permute(1,2, 0).numpy()
     # imsave(sourcepath[1].replace('.wav','_gtjpg'),ggt )
     handle.remove()
