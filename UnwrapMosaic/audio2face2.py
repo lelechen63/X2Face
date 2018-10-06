@@ -161,9 +161,9 @@ for gg in sourcepaths:
     result = model(source_img, source_img)
     gg = result.squeeze().data.permute(1,2,0).numpy()
     cc += 1
-    imsave(sourcepath[1].replace('wav','jpg'),gg )
-    ggt = ggt.permute(1,2, 0).numpy()
-    imsave('results/gt_%d.jpg'%cc,ggt )
+    imsave(sourcepath[1].replace('npy','jpg'),gg )
+    # ggt = ggt.permute(1,2, 0).numpy()
+    # imsave(sourcepath[1].replace('.wav','_gtjpg'),ggt )
     handle.remove()
     
     # img_to_show_all = np.hstack((result.squeeze().data.permute(1,2,0).numpy(), img_to_show_all))
