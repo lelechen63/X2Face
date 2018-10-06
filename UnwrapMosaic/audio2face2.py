@@ -31,10 +31,20 @@ def mat2npy(path):
 def get_sourcepaths(csv_file):
     _csv = open(csv_file,'rb')
     reader = csv.reader(_csv)
+    data = []
     for line in reader:
-        print (line)
+        tmp = []
+        if len(line) == 3:
 
-get_sourcepaths('/u/lchen63/data/mat/test.csv')
+            imgpath = line[0]
+            audio_path = line[1]
+            tmp.append(imgpath)
+            tmp.append(audio_path)
+
+            data.append(tmp)
+    return data
+data = get_sourcepaths('/u/lchen63/data/mat/test.csv')
+print (data)
 sys.exit("Error message")
 
 def load_img_and_audio(file_path):
