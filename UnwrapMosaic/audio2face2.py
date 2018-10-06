@@ -24,22 +24,17 @@ def mat2npy(path):
     audio = imdb[:,1]
     outfile = path.replace('mat', 'npy')
     np.save(outfile, audio )
-    # for i in range(1,11):
-    #     tt = imdb[0,i][1]        
-    #     audio = tt[:,0]
-    #     outfile = 'examples/audio_features/test1/EzraMiller_%05d.npy'%(i + 10)
-    #     np.save(outfile, audio )
-
-
-
-    # d = np.load('examples/audio_features/Cristin_Milioti/1.6/IblJpk1GDZA/0004575.npz')['audio_feat']
-    # print (d)
-    # print (d.shape)
-mat2npy('/u/lchen63/data/audio/EzraMiller/EzraMiller_75.mat')
+    
+# mat2npy('/u/lchen63/data/audio/EzraMiller/EzraMiller_75.mat')
 #
+def get_sourcepaths(csv_file):
+    _csv = open(csv_file,'rb')
+    reader = csv.reader(_csv)
+    for line in reader:
+        print (line)
 
-
-# sys.exit("Error message")
+get_sourcepaths('/u/lchen63/data/mat/test.csv')
+sys.exit("Error message")
 
 def load_img_and_audio(file_path):
     transform = Compose([Scale((256,256)), ToTensor()])
@@ -64,7 +59,7 @@ def load_img_and_audio1(file_path):
     return {'image' : img, 'audio' : audio_feature}
    # paths to source frames
 
-sourcepaths= [['/u/lchen63/data/faces/EzraMiller/EzraMiller_00075.jpg', '/u/lchen63/data/audio/EzraMiller/EzraMiller_75.npy']]
+sourcepaths= get_sourcepaths('/u/lchen63/data/mat/test.csv')
 
 # path to frames corresponding to driving audio features
 audio_path = 'examples/audio_faces/Peter_Capaldi/1.6/uAgUjSqIj7U'
