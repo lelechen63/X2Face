@@ -263,7 +263,7 @@ def  read_pickle():
         count += 1
         if count == 100:
             break
-    scipy.io.savemat(os.path.join( dataset_dir ,'test.mat' ), mdict={'my_list': my_list})
+    scipy.io.savemat(os.path.join( dataset_dir ,'test.mat' ), mdict={'test_data': data})
       
 
 read_pickle()
