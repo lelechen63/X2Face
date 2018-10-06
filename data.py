@@ -241,7 +241,7 @@ def  read_pickle():
     test_data = pickle.load(_file)
     _file.close()
     count = 0
-    csv_file = open(os.path.join( dataset_dir ,'test.csv' ),'w')
+    csv_file = open(os.path.join( '/u/lchen63/data/mat' ,'test.csv' ),'w')
     csv_writer = csv.writer(csv_file, delimiter=',')
 
     data = []
