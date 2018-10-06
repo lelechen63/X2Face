@@ -38,9 +38,9 @@ def get_sourcepaths(csv_file):
 
             imgpath = line[0]
             fid = line[2]
-            audio_path = line[1].replace('.wav','_%d.mat'%fid)
+            audio_path = line[1].replace('.wav','_' + fid + '.mat')
             # audio_path = line[1]
-            
+            print (audio_path)
             print (type(fid))
             origial_img = imgpath[:-7] + '008.jpg'
             origial_audio = audio_path[:]
@@ -50,7 +50,7 @@ def get_sourcepaths(csv_file):
     return data
 data = get_sourcepaths('/u/lchen63/data/mat/test.csv')
 # print (data)
-# sys.exit("Error message")
+sys.exit("Error message")
 
 def load_img_and_audio(file_path):
     transform = Compose([Scale((256,256)), ToTensor()])
