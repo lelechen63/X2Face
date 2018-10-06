@@ -245,7 +245,7 @@ def  read_pickle():
             continue
         tmp  = test_data[i][0].split('/')
         print (tmp)
-        img_path = os.path.join('/mnt/disk1/dat/lchen63/lrw/data/regions' , test_data[i][0])
+        img_path = os.path.join('/mnt/disk1/dat/lchen63/lrw/data/image' , test_data[i][0])
         
         audio_path = os.path.join(audio_path_root, tmp[0], tmp[1],tmp[2]+'.wav')
         # print (test_data[i])
@@ -254,7 +254,7 @@ def  read_pickle():
         count += 1
         if count == 100:
             break
-        
+
 
 read_pickle()
 # audio_extractor('EzraMiller')
