@@ -50,8 +50,7 @@ def get_sourcepaths(csv_file):
 
             tmp.append(imgpath)
             tmp.append(audio_path)
-            data.append(orgin)
-            data.append(tmp)
+            data.append([orgin,tmp])
     return data
 # data = get_sourcepaths('/u/lchen63/data/mat/test.csv')
 # # print (data)
