@@ -34,6 +34,7 @@ def get_sourcepaths(csv_file):
     data = []
     for line in reader:
         tmp = []
+        orgin = []
         if len(line) == 3:
 
             imgpath = line[0]
@@ -43,14 +44,18 @@ def get_sourcepaths(csv_file):
             print (audio_path)
             print (type(fid))
             origial_img = imgpath[:-7] + '008.jpg'
-            origial_audio = audio_path[:]
+            origial_audio = line[1].replace('.wav','_8.mat')
+            orgin.append(origial_img)
+            orgin.append(origial_audio)
+
             tmp.append(imgpath)
             tmp.append(audio_path)
+            data.append(orgin)
             data.append(tmp)
     return data
-data = get_sourcepaths('/u/lchen63/data/mat/test.csv')
-# print (data)
-sys.exit("Error message")
+# data = get_sourcepaths('/u/lchen63/data/mat/test.csv')
+# # print (data)
+# sys.exit("Error message")
 
 def load_img_and_audio(file_path):
     transform = Compose([Scale((256,256)), ToTensor()])
@@ -118,7 +123,9 @@ scalar = None
 # Drive 3 different identities with same audio
 img_gt_gen = np.empty((0,2560,3))
 cc = 0
-for sourcepath in sourcepaths:
+for gg in sourcepaths:
+    sourcepath = gg[0]
+    imgpaths = gg[1]
     print (sourcepath)
     print ('===')
     img_to_show_all = np.empty((256,0,3))
@@ -133,8 +140,8 @@ for sourcepath in sourcepaths:
     for imgpath in imgpaths:
         
         # Extract the driving audio features
-        fullaudiopath = os.path.join(audio_path, imgpath)
-        audio_data = load_img_and_audio(fullaudiopath)
+        # fullaudiopath = os.path.join(audio_path, imgpath)
+        audio_data = load_img_and_audio1(imgpath)
         ggt =  audio_data['image']
         audio_img = Variable(audio_data['image'], volatile=True).unsqueeze(0)
         audio_feature = audio_data['audio'].cpu().numpy().reshape(1,-1)
