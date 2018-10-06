@@ -240,7 +240,10 @@ def  read_pickle():
     test_data = pickle.load(_file)
     _file.close()
     count = 0
+
+    data = []
     for i in range(0,len(test_data)):
+        gg = []
         if test_data[i][1] < 7:
             continue
         tmp  = test_data[i][0].split('/')
@@ -251,10 +254,17 @@ def  read_pickle():
         # print (test_data[i])
         print(img_path)
         print(audio_path)
+
+        gg.append(img_path)
+        gg.append(audio_path)
+        gg.append(test_data[i][1])
+        data.append(gg)
+
         count += 1
         if count == 100:
             break
-
+    scipy.io.savemat(os.path.join( dataset_dir ,'test.mat' ), mdict={'my_list': my_list})
+      
 
 read_pickle()
 # audio_extractor('EzraMiller')
