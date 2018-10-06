@@ -37,15 +37,20 @@ def get_sourcepaths(csv_file):
         if len(line) == 3:
 
             imgpath = line[0]
-            audio_path = line[1]
+            fid = line[2]
+            audio_path = line[1].replace('.wav','_%d.mat'%fid)
+            # audio_path = line[1]
+            
+            print (type(fid))
+            origial_img = imgpath[:-7] + '008.jpg'
+            origial_audio = audio_path[:]
             tmp.append(imgpath)
             tmp.append(audio_path)
-
             data.append(tmp)
     return data
 data = get_sourcepaths('/u/lchen63/data/mat/test.csv')
-print (data)
-sys.exit("Error message")
+# print (data)
+# sys.exit("Error message")
 
 def load_img_and_audio(file_path):
     transform = Compose([Scale((256,256)), ToTensor()])
@@ -154,7 +159,7 @@ for sourcepath in sourcepaths:
         result = model(source_img, source_img)
         gg = result.squeeze().data.permute(1,2,0).numpy()
         cc += 1
-        imsave('results/%d.jpg'%cc,gg )
+        imsave(sourcepath[1].replace('wav','jpg'),gg )
         ggt = ggt.permute(1,2, 0).numpy()
         imsave('results/gt_%d.jpg'%cc,ggt )
         handle.remove()
