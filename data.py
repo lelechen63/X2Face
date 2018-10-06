@@ -253,25 +253,26 @@ def  read_pickle():
         tmp  = test_data[i][0].split('/')
         print (tmp)
         
-        if os.path.exists(os.path.join('/u/lchen63/data/lrw', 'audio') ):
+        if not  os.path.exists(os.path.join('/u/lchen63/data/lrw', 'audio') ):
             os.mkdir(os.path.join('/u/lchen63/data/lrw', 'audio'))
-        if os.path.exists(os.path.join('/u/lchen63/data/lrw', 'audio', tmp[0]) ):
+
+        if not os.path.exists(os.path.join('/u/lchen63/data/lrw', 'audio', tmp[0]) ):
             os.mkdir(os.path.join('/u/lchen63/data/lrw', 'audio', tmp[0]))
 
-        if os.path.exists(os.path.join('/u/lchen63/data/lrw', 'audio', tmp[0], tmp[1]) ):
+        if not os.path.exists(os.path.join('/u/lchen63/data/lrw', 'audio', tmp[0], tmp[1]) ):
             os.mkdir(os.path.join('/u/lchen63/data/lrw', 'audio', tmp[0], tmp[1]))
 
         
-        if os.path.exists(os.path.join('/u/lchen63/data/lrw', 'image') ):
+        if not os.path.exists(os.path.join('/u/lchen63/data/lrw', 'image') ):
             os.mkdir(os.path.join('/u/lchen63/data/lrw', 'image'))
 
-        if os.path.exists(os.path.join('/u/lchen63/data/lrw', 'image', tmp[0]) ):
+        if not os.path.exists(os.path.join('/u/lchen63/data/lrw', 'image', tmp[0]) ):
             os.mkdir(os.path.join('/u/lchen63/data/lrw', 'image', tmp[0]))
 
-        if os.path.exists(os.path.join('/u/lchen63/data/lrw', 'image', tmp[0], tmp[1]) ):
+        if not os.path.exists(os.path.join('/u/lchen63/data/lrw', 'image', tmp[0], tmp[1]) ):
             os.mkdir(os.path.join('/u/lchen63/data/lrw', 'image', tmp[0], tmp[1]))
 
-        if os.path.exists(os.path.join('/u/lchen63/data/lrw', 'image', tmp[0], tmp[1], tmp[2]) ):
+        if not os.path.exists(os.path.join('/u/lchen63/data/lrw', 'image', tmp[0], tmp[1], tmp[2]) ):
             os.mkdir(os.path.join('/u/lchen63/data/lrw', 'image', tmp[0], tmp[1], tmp[2]))
 
 
