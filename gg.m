@@ -1,4 +1,5 @@
 
+
 % SyncNet for all angles - v0.1 - 3 Apr 2017 
 % Y - grayscale image frames, stacked along the 3rd dimension
 % Z - audio signal -- 16KHz mono
@@ -49,11 +50,23 @@ lip_id = structfind(net.vars,'name','x24_lip');
 fprintf('Network loaded. \n');
 
 %% Load and prepare data
+fid = fopen('/u/lchen63/data/mat/test.csv');
+tline = fgetl(fid);
+while ischar(tline)
+	cells = strsplit(tline,',')
+	audio_path  = cells{2}
+	frame = str2num(cells{3})
+	export_audio(audio_path, frame , opt, net, aud_id);
+
 names = dir('/u/lchen63/data/faces/');
+
 
 for i=1:size(names,1)
 
 	if names(i).name(1) ~= '.'
+        if ~exist(['/u/lchen63/data/audio/' names(i).name  '/'], 'dir')
+		mkdir(['/u/lchen63/data/audio/' names(i).name  '/']);
+        end
 		export_audio(names(i).name, opt, net, aud_id);
 		%tracks = dir([names(i).folder '/' names(i).name ])
 
@@ -70,8 +83,44 @@ for i=1:size(names,1)
 
 end
 
+function export_audio(audio_path, id, opt, net, aud_id)
+	audio_file = [audio_path];
+	imdb = struct('frame', [], 'audio_ft', []);
+
+	%if exist(['/u/lchen63/data/audio/' track_name  '/'], 'dir') 
+	%	return
+	%end
+
+	data = audioread(audio_file);
+	
+	offset = id * 16000 / 25;
+
+	%track_name, track_id
+	pad = (21 / 100) * opt.fs;
+	Z = data(offset-pad:offset+pad);
+	[ C, ~, ~ ] = runmfcc( Z, opt );
+	C = bsxfun(@minus, single(C), net.meta.normalization_a.averageImage) ;
+	C = C(2:13,:);
+	for j = 1:3
+			c = C(:,((j-1)*10+1:(j-1)*10+20));
+			net.eval({'input_audio',gpuArray(c)});
+			Cf{j}   = squeeze(gather(net.vars(aud_id).value));
+	end
+	Cf
+	fprintf('Audio features extracted. \n');
+	cf  = cat(2,Cf{:});
+    cf_size = size(cf)
+ //    name = ['/u/lchen63/data/audio/' track_name  '/' track_name '_' num2str(f) '.mat']
+ //    save(name, 'cf')
+	// if ~exist(['/u/lchen63/data/audio/' track_name  '/'], 'dir')
+	// 	mkdir(['/u/lchen63/data/audio/' track_name  '/']);
+	// end
+	save([strrep(audio_path, '.wav', '_') num2str(id)] '.mat', 'cf');
+end 
+
+
 function export_audio(track_name, opt, net, aud_id)
-	audio_file = ['/u/lchen63/data/audio'   '/EzraMiller.wav'];
+	audio_file = ['/u/lchen63/data/audio/'  track_name  '.wav'];
 	frames = dir(['/u/lchen63/data/faces/' track_name   '/*.jpg']);
 
 	imdb = struct('frame', [], 'audio_ft', []);
@@ -81,13 +130,15 @@ function export_audio(track_name, opt, net, aud_id)
 	%end
 
 	data = audioread(audio_file);
-	for f=1:numel(frames)
-		fprint(frames(f).name)
-		offset = str2num(frames(f).name(1:end-4)) * 16000 / 25;
+	for f=65:85
+		fprintf(frames(f).name)
+        fprintf(frames(f).name(end-8:end-4))
+		offset = str2num(frames(f).name(end-8:end-4)) * 16000 / 25;
 
 		%track_name, track_id
 		pad = (21 / 100) * opt.fs;
-		offset, pad, frames(f).name(1:end-4)	
+		offset, pad, frames(f).name(end-8:end-4)
+        size(data)
 		Z = data(offset-pad:offset+pad);
 		[ C, ~, ~ ] = runmfcc( Z, opt );
 		C = bsxfun(@minus, single(C), net.meta.normalization_a.averageImage) ;
@@ -101,10 +152,13 @@ function export_audio(track_name, opt, net, aud_id)
 		Cf
 		fprintf('Audio features extracted. \n');
 		cf  = cat(2,Cf{:});
-		imdb(end+1) = struct('frame', frames(f).name, 'audio_ft', cf);
+        cf_size = size(cf)
+% 		gg = struct('frame', frames(f).name, 'audio_ft', cf);
+        name = ['/u/lchen63/data/audio/' track_name  '/' track_name '_' num2str(f) '.mat']
+        save(name, 'cf')
 	end
 	if ~exist(['/u/lchen63/data/audio/' track_name  '/'], 'dir')
 		mkdir(['/u/lchen63/data/audio/' track_name  '/']);
 	end
 	save(['/u/lchen63/data/audio/' track_name  '/audio.mat'], 'imdb');
-end
+end 

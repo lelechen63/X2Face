@@ -11,6 +11,7 @@ from skimage import transform as tf
 import scipy.io
 import librosa
 import csv
+from shutil import copyfile
 
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor('../basics/shape_predictor_68_face_landmarks.dat')
@@ -247,24 +248,48 @@ def  read_pickle():
     data = []
     for i in range(0,len(test_data)):
         gg = []
-        if test_data[i][1] < 7:
+        if test_data[i][1] < 7 or test_data[i][1] > 21:
             continue
         tmp  = test_data[i][0].split('/')
         print (tmp)
-        img_path = os.path.join('/mnt/disk1/dat/lchen63/lrw/data/image' , test_data[i][0])
         
+        if os.path.exists(os.path.join('/u/lchen63/data/lrw', 'audio') ):
+            os.mkdir(os.path.join('/u/lchen63/data/lrw', 'audio'))
+        if os.path.exists(os.path.join('/u/lchen63/data/lrw', 'audio', tmp[0]) ):
+            os.mkdir(os.path.join('/u/lchen63/data/lrw', 'audio', tmp[0]))
+
+        if os.path.exists(os.path.join('/u/lchen63/data/lrw', 'audio', tmp[0], tmp[1]) ):
+            os.mkdir(os.path.join('/u/lchen63/data/lrw', 'audio', tmp[0], tmp[1]))
+
+        
+        if os.path.exists(os.path.join('/u/lchen63/data/lrw', 'image') ):
+            os.mkdir(os.path.join('/u/lchen63/data/lrw', 'image'))
+
+        if os.path.exists(os.path.join('/u/lchen63/data/lrw', 'image', tmp[0]) ):
+            os.mkdir(os.path.join('/u/lchen63/data/lrw', 'image', tmp[0]))
+
+        if os.path.exists(os.path.join('/u/lchen63/data/lrw', 'image', tmp[0], tmp[1]) ):
+            os.mkdir(os.path.join('/u/lchen63/data/lrw', 'image', tmp[0], tmp[1]))
+
+        if os.path.exists(os.path.join('/u/lchen63/data/lrw', 'image', tmp[0], tmp[1], tmp[2]) ):
+            os.mkdir(os.path.join('/u/lchen63/data/lrw', 'image', tmp[0], tmp[1], tmp[2]))
+
+
+        img_path = os.path.join('/mnt/disk1/dat/lchen63/lrw/data/image' , test_data[i][0])
+
+        copyfile(img_path, os.path.join('/u/lchen63/data/lrw', 'image', test_data[i][0]))
+
         audio_path = os.path.join(audio_path_root, tmp[0], tmp[1],tmp[2]+'.wav')
         audio,_ = librosa.load(audio_path, sr = 16000)
         print (audio)
 
-        librosa.output.write_wav(audio_path.replace('.wav' ,'_16000.wav'), audio, 16000)
-
+        librosa.output.write_wav(os.path.join('/u/lchen63/data/lrw', 'audio', tmp[0], tmp[1] ,tmp[2]+'.wav'), audio, 16000)
         # print (test_data[i])
         print(img_path)
         print(audio_path)
 
-        gg.append(img_path)
-        gg.append(audio_path.replace('.wav' ,'_16000.wav'))
+        gg.append(os.path.join('/u/lchen63/data/lrw', 'image', test_data[i][0]))
+        gg.append(os.path.join('/u/lchen63/data/lrw', 'audio', tmp[0], tmp[1] ,tmp[2]+'.wav'))
         gg.append(test_data[i][1])
         data.append(gg)
         csv_writer.writerow(gg)
