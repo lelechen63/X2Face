@@ -14,7 +14,6 @@ from scipy.io import loadmat
 import sys
 from tempfile import TemporaryFile
 import csv
-print ('1')
 def mat2npy(path):
 
     matx = loadmat(path)
@@ -64,7 +63,6 @@ def load_img_and_audio(file_path):
 
 def load_img_and_audio1(file_path):
     transform = Compose([Scale((256,256)), ToTensor()])
-    print (file_path)
     img_p = file_path[0]
     audio_p = file_path[1]
     img = Image.open(img_p).convert('RGB')
