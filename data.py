@@ -308,7 +308,7 @@ def  read_pickle_yousaidthat():
     count = 0
     csv_file = open(os.path.join( '/u/lchen63/data/mat' ,'test_yousaidthat.csv' ),'w')
     csv_writer = csv.writer(csv_file, delimiter=',')
-
+    gs = [1,5,10,15,20]
     data = []
     for i in range(0,len(test_data)):
         # if test_data[i][1] < 5:
@@ -353,8 +353,11 @@ def  read_pickle_yousaidthat():
         print(img_path)
         print(audio_path)
         if os.path.join('/u/lchen63/data/lrw_yousaidthat', 'audio', tmp[0], tmp[1] ,tmp[2]+'.wav') not in data:
+            gg = []
+            for g in gs:
+                gg.append(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'image', test_data[i][0][:-7] + "%03d.jpg"%g))
             data.append(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'audio', tmp[0], tmp[1] ,tmp[2]+'.wav'))
-            csv_writer.writerow([os.path.join('/u/lchen63/data/lrw_yousaidthat', 'audio', tmp[0], tmp[1] ,tmp[2]+'.wav')])
+            csv_writer.writerow(gg)
         count += 1
         if count == 30:
             break
