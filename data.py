@@ -333,7 +333,7 @@ def  read_pickle_yousaidthat():
             os.mkdir(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'image', tmp[0]))
 
         if not os.path.exists(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'image', tmp[0], tmp[1]) ):
-            os.mkdir(os.path.join('/u/lchen63/data/lrw', 'image', tmp[0], tmp[1]))
+            os.mkdir(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'image', tmp[0], tmp[1]))
 
         if not os.path.exists(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'image', tmp[0], tmp[1], tmp[2]) ):
             os.mkdir(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'image', tmp[0], tmp[1], tmp[2]))
