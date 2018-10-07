@@ -67,8 +67,6 @@ def load_img_and_audio1(file_path):
     print (file_path)
     img_p = file_path[0]
     audio_p = file_path[1]
-    print (img_p)
-    print (audio_p)
     img = Image.open(img_p).convert('RGB')
     img = transform(img)
     # audio_label_path = str(file_path).replace('audio_faces', 'audio_features').replace('jpg','npy')
@@ -122,16 +120,12 @@ cc = 0
 for gg in sourcepaths:
     sourcepath = gg[0]
     imgpaths = gg[1]
-    print (sourcepath)
-    print ('===')
     img_to_show_all = np.empty((256,0,3))
     gt_ims = np.empty((256,0,3))
     source_data = load_img_and_audio1(sourcepath)
     source_img = Variable(source_data['image']).unsqueeze(0)
-    print ('======')
     audio_feature_source = source_data['audio'].cpu().numpy().reshape(1,-1)
     audio_feature_origin = linearregression.predict(audio_feature_source)
-    print ('+++')
     audio_feature_origin = torch.Tensor(audio_feature_origin).unsqueeze(2).unsqueeze(2)
         
     # Extract the driving audio features
@@ -162,8 +156,7 @@ for gg in sourcepaths:
     gg = result.squeeze().data.permute(1,2,0).numpy()
     cc += 1
     imsave(imgpaths[1].replace('npy','jpg'),gg )
-    print (imgpaths[1].replace('npy','jpg'))
-    print ('=====================')
+    print (cc)
     # ggt = ggt.permute(1,2, 0).numpy()
     # imsave(sourcepath[1].replace('.wav','_gtjpg'),ggt )
     handle.remove()
