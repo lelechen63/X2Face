@@ -341,7 +341,7 @@ def  read_pickle_yousaidthat():
 
         img_path = os.path.join('/mnt/disk1/dat/lchen63/lrw/data/regions' , test_data[i][0])
         img = cv2.imread(img_path)
-        img = cv2.resize(image, (112,112), interpolation = cv2.INTER_AREA)
+        img = cv2.resize(img, (112,112), interpolation = cv2.INTER_AREA)
         cv2.imwrite(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'image', test_data[i][0]) , img)
         #copyfile(img_path, os.path.join('/u/lchen63/data/lrw_yousaidthat', 'image', test_data[i][0]))
 
