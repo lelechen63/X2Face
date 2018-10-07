@@ -356,7 +356,7 @@ def  read_pickle_yousaidthat():
             gg = []
             for g in gs:
                 gg.append(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'image', test_data[i][0][:-7] + "%03d.jpg"%g))
-            data.append(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'audio', tmp[0], tmp[1] ,tmp[2]+'.wav'))
+            gg.append(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'audio', tmp[0], tmp[1] ,tmp[2]+'.wav'))
             csv_writer.writerow(gg)
         count += 1
         if count == 30:
