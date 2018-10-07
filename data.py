@@ -354,7 +354,7 @@ def  read_pickle_yousaidthat():
         print(audio_path)
         if os.path.join('/u/lchen63/data/lrw_yousaidthat', 'audio', tmp[0], tmp[1] ,tmp[2]+'.wav') not in data:
             data.append(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'audio', tmp[0], tmp[1] ,tmp[2]+'.wav'))
-            csv_writer.writerow(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'audio', tmp[0], tmp[1] ,tmp[2]+'.wav'))
+            csv_writer.writerow([os.path.join('/u/lchen63/data/lrw_yousaidthat', 'audio', tmp[0], tmp[1] ,tmp[2]+'.wav')])
         count += 1
         if count == 10:
             break
