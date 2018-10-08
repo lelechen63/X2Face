@@ -27,7 +27,7 @@ opt.audio.L        = 22;            % cepstral sine lifter parameter
 % ===== LOAD ORIGINAL NET =====
 
 netStructv201 = load('model/v201.mat'); 
-
+global net
 net = dagnn.DagNN.loadobj(netStructv201.net);
 net.mode = 'test';
 net.move('gpu')
@@ -44,6 +44,7 @@ end
 % ===== LOAD DEBLUR NET =====
 
 netStructv114 = load('model/v114.mat'); 
+global netR
 
 netR = dagnn.DagNN.loadobj(netStructv114.net);
 netR.mode = 'test';
@@ -64,11 +65,11 @@ tline = fgetl(fid);
 while ischar(tline)
   cells = strsplit(tline,',')
   faceimg= imread(cells{1});
+  faceimg = permute(faceimg,[3 2 1]);
   for i = 2:5
-    faceimg = cat(1,faceimg,imread(cells{i}));
-  faceY   = gpuArray(cat(4,faceimg{:}));
-  faceYG  = gather(faceY)/255;
-  faceYG  = faceYG(2:110,2:110,1:3,:);
+    faceimg = cat(1,faceimg,permute(imread(cells{i}),[3 2 1]));
+  end
+  faceY   = gpuArray( reshape(faceimg,[112,112,15,1]));
 
   audio_path  = cells{6}
   Zpad              = zeros(16000,1);
@@ -76,14 +77,11 @@ while ischar(tline)
 
   Z = [Zpad; Zo1; Zpad];
   [ C, F, ~ ]     = runmfcc( Z, opt.audio );
-  forwardpass(cells{7}, C,F,faceimg, faceY, faceYG);
+  forwardpass(cells{7}, C,F,faceimg, faceY);
 end
 
-
-
-
 %% ===== FORWARD PASS =====
-function forwardpass(img_path, C,F,faceimg, faceY, faceYG);
+function forwardpass(img_path, C,F,faceimg, faceY)
   padn    = 2;
   Y       = cell(0);
   cn = 1
@@ -108,13 +106,3 @@ function forwardpass(img_path, C,F,faceimg, faceY, faceYG);
 
   end
 end
-
-%% ===== SAVE VIDEO =====
-
-af = asf+1: asf + numel(Y)* val ;
-
-imgAudioToVideo (opt,Y,Z(af),[writepath '.avi']);
-avi2mp4 ([writepath '.avi'],[writepath '.mp4'],5000);
-
-delete([writepath '.avi'])
-delete(tmpwavfile);
