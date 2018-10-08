@@ -360,7 +360,7 @@ def  read_pickle_yousaidthat():
             csv_writer.writerow(gg)
             count += 1
             print count
-        if count == 10:
+        if count == 300:
             break
     # scipy.io.savemat(os.path.join( dataset_dir ,'test.mat' ), mdict={'test_data': data})
 read_pickle_yousaidthat()
