@@ -314,7 +314,6 @@ def  read_pickle_yousaidthat():
         # if test_data[i][1] < 5:
         #     continue
         tmp  = test_data[i][0].split('/')
-        print (tmp)
         
         if not  os.path.exists(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'audio') ):
             os.mkdir(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'audio'))
@@ -359,8 +358,8 @@ def  read_pickle_yousaidthat():
             data.append(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'audio', tmp[0], tmp[1] ,tmp[2]+'.wav'))
 
             csv_writer.writerow(gg)
-        count += 1
-        print count
+            count += 1
+            print count
         if count == 1000:
             break
     # scipy.io.savemat(os.path.join( dataset_dir ,'test.mat' ), mdict={'test_data': data})
