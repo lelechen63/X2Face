@@ -350,8 +350,6 @@ def  read_pickle_yousaidthat():
 
         librosa.output.write_wav(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'audio', tmp[0], tmp[1] ,tmp[2]+'.wav'), audio, 16000)
         # print (test_data[i])
-        print(img_path)
-        print(audio_path)
         if os.path.join('/u/lchen63/data/lrw_yousaidthat', 'audio', tmp[0], tmp[1] ,tmp[2]+'.wav') not in data:
             gg = []
             for g in gs:
@@ -362,7 +360,8 @@ def  read_pickle_yousaidthat():
 
             csv_writer.writerow(gg)
         count += 1
-        if count == 10000:
+        print count
+        if count == 1000:
             break
     # scipy.io.savemat(os.path.join( dataset_dir ,'test.mat' ), mdict={'test_data': data})
 read_pickle_yousaidthat()
