@@ -405,10 +405,11 @@ def  read_pickle_yousaidthat_voxceleb():
                         img_name = os.path.join(v_path, clip,  i_n)
                         if i_n[-8:] == '_112.jpg':
                             os.system('rm ' + img_name )
+                            print (img_name)
                             continue
                         
-                        img = cv2.imread(img_name)
-                        img = cv2.resize(img, (112,112), interpolation = cv2.INTER_AREA)
+                        # img = cv2.imread(img_name)
+                        # img = cv2.resize(img, (112,112), interpolation = cv2.INTER_AREA)
                         # cv2.imwrite(img_name.replace('.jpg','_112.jpg') , img)
 
                     # for g in gs:
