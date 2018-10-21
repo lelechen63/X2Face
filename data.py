@@ -401,7 +401,7 @@ def  read_pickle_yousaidthat_voxceleb():
             gg = []
             for clip in clips:
                 if os.path.exists(os.path.join(audio_path, video_name, '%05d.wav'%(int(clip)))):
-                    flge = True
+                    flage = True
                     if len(os.listdir(os.path.join(region_path, video_name, clip))) < 20:
                         continue
                     for g in gs:
