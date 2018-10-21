@@ -387,9 +387,11 @@ def  read_pickle_yousaidthat_voxceleb():
         if not os.path.exists(region_path):
             print ('==================')
             print (region_path)
+            continue
         elif not os.path.exists(audio_path):
             print ('=========++++====')
             print (audio_path)
+            continue
 
         video_names = os.listdir(region_path)
 
@@ -399,41 +401,46 @@ def  read_pickle_yousaidthat_voxceleb():
             gg = []
             for clip in clips:
                 if os.path.exists(os.path.join(audio_path, video_name, '%05d.wav'%(int(clip)))):
-                    flage = True
-
-                    for i_n in os.listdir(os.path.join(region_path, video_name, clip)):
-                        img_name = os.path.join(v_path, clip,  i_n)
-                        if i_n[-8:] == '_112.jpg':
-                            os.system('rm ' + img_name )
-                            print (img_name)
+                    flge = True
+                    for g in gs:
+                        if not os.path.exists(os.path.join(v_path, clip,  "%02d.jpg"%g)):
                             continue
+                    for i_n in os.listdir(os.path.join(region_path, video_name, clip)):
+                        if i_n[-9:] == '_same.jpg':
+                            continue
+                        img_name = os.path.join(v_path, clip,  i_n)
+                        # if i_n[-8:] == '_112.jpg':
+                        #     os.system('rm ' + img_name )
+                        #     print (img_name)
+                        #     continue
                         
-                        # img = cv2.imread(img_name)
-                        # img = cv2.resize(img, (112,112), interpolation = cv2.INTER_AREA)
-                        # cv2.imwrite(img_name.replace('.jpg','_112.jpg') , img)
+                        img = cv2.imread(img_name)
+                        img = cv2.resize(img, (112,112), interpolation = cv2.INTER_AREA)
+                        cv2.imwrite(img_name.replace('.jpg','_same.jpg') , img)
 
-                    # for g in gs:
-                    #     if os.path.exists(os.path.join(v_path, clip,  "%02d_112.jpg"%g)):
-                    #         gg.append(os.path.join(v_path, clip,  "%02d_112.jpg"%g))
-                    #     else:
-                    #         flage= False
+                    for g in gs:
+                        if os.path.exists(os.path.join(v_path, clip,  "%02d_same.jpg"%g)):
+                            gg.append(os.path.join(v_path, clip,  "%02d_same.jpg"%g))
+                        else:
+                            flage = False
+                            continue
+                    
+                    if flage == True:
+                        gg.append(os.path.join(audio_path, video_name, '%05d.wav'%(int(clip))))
+                        gg.append(os.path.join(region_path, video_name, clip))
 
-                    #         continue
-
-                    gg.append(os.path.join(audio_path, video_name, '%05d.wav'%(int(clip))))
-                    gg.append(os.path.join(region_path, video_name, clip))
-
-                    csv_writer.writerow(gg)
-                    count += 1
-        #         print count
-        #         if count == 2:
-        #             break
-        #     print count
-        #     if count == 2:
-        #         break
-        # print count
-        # if count == 2:
-        #     break
+                        csv_writer.writerow(gg)
+                        gg = []
+                        count += 1
+                print count
+                if count == 2:
+                    break
+            print count
+            if count == 2:
+                break
+        print count
+        if count == 2:
+            break
                 
 read_pickle_yousaidthat_voxceleb()
 # read_pickle_yousaidthat()
