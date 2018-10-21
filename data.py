@@ -411,11 +411,13 @@ def  read_pickle_yousaidthat_voxceleb():
                     gg.append(os.path.join(audio_path, video_name, '%05d.wav'%(int(clip))))
                     gg.append(os.path.join(region_path, video_name, clip))
 
-                csv_writer.writerow(gg)
-                count += 1
-                print count
-                if count == 2:
-                    break
+                    csv_writer.writerow(gg)
+                    count += 1
+                    print count
+                    if count == 2:
+                        break
+                else:
+                    print (os.path.join(audio_path, video_name, '%05d.wav'%(int(clip))))
 read_pickle_yousaidthat_voxceleb()
 # read_pickle_yousaidthat()
 # audio_extractor('EzraMiller')
