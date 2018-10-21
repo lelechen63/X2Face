@@ -397,7 +397,7 @@ def  read_pickle_yousaidthat_voxceleb():
             clips = os.listdir(v_path)
             gg = []
             for clip in clips:
-                if os.path.exists(audio_path, video_name, '%05d.wav'%(int(clip))):
+                if os.path.exists(os.path.join(audio_path, video_name, '%05d.wav'%(int(clip)))):
 
                     for i_n in os.listdir(os.path.join(region_path, video_name, clip)):
                         img_name = os.path.join(v_path, clip,  i_n)
