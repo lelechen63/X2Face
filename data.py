@@ -423,6 +423,7 @@ def  read_pickle_yousaidthat_voxceleb():
                             gg.append(os.path.join(v_path, clip,  "%02d_same.jpg"%g))
                         else:
                             flage = False
+                            print (os.path.join(v_path, clip,  "%02d_same.jpg"%g))
                             continue
                     
                     if flage == True:
