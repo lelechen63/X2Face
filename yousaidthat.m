@@ -77,11 +77,11 @@ while ischar(tline)
 
   Z = [Zpad; Zo1; Zpad];
   [ C, F, ~ ]     = runmfcc( Z, opt.audio );
-  forwardpass(cells{7}, C,F,faceimg, faceY);
+  forwardpass(cells{7}, C,F, faceY);
 end
 
 %% ===== FORWARD PASS =====
-function forwardpass(img_path, C,F,faceimg, faceY)
+function forwardpass(img_path, C,F, faceY)
   padn    = 2;
   Y       = cell(0);
   cn = 1

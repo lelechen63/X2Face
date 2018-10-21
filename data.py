@@ -362,8 +362,74 @@ def  read_pickle_yousaidthat():
             print count
         if count == 300:
             break
+
+
+def  read_pickle_yousaidthat_voxceleb():
+    audio_path_root = '/home/cxu-serve/p1/lchen63/voxceleb/audio'
+    image_path_root = '/home/cxu-serve/p1/lchen63/voxceleb/image'
+    dataset_dir = "/mnt/disk1/dat/lchen63/lrw/data/pickle/"
+    _file = open("/home/cxu-serve/p1/lchen63/voxceleb/vox1_meta.csv", "rb")
+    csv_file = open(os.path.join( '/u/lchen63/data/mat' ,'voxceleb_test_yousaidthat.csv' ),'w')
+    csv_writer = csv.writer(csv_file, delimiter=',')
+    gs = [1,5,10,15,20]
+    data = []
+    for line in _file:
+        tmps = line.split()
+        print (tmps)
+        # if test_data[i][1] < 5:
+        #     continue
+        tmp  = test_data[i][0].split('/')
+        
+        if not  os.path.exists(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'audio') ):
+            os.mkdir(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'audio'))
+
+        if not os.path.exists(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'audio', tmp[0]) ):
+            os.mkdir(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'audio', tmp[0]))
+
+        if not os.path.exists(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'audio', tmp[0], tmp[1]) ):
+            os.mkdir(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'audio', tmp[0], tmp[1]))
+
+        
+        if not os.path.exists(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'image') ):
+            os.mkdir(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'image'))
+
+        if not os.path.exists(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'image', tmp[0]) ):
+            os.mkdir(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'image', tmp[0]))
+
+        if not os.path.exists(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'image', tmp[0], tmp[1]) ):
+            os.mkdir(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'image', tmp[0], tmp[1]))
+
+        if not os.path.exists(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'image', tmp[0], tmp[1], tmp[2]) ):
+            os.mkdir(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'image', tmp[0], tmp[1], tmp[2]))
+
+
+        img_path = os.path.join('/mnt/disk1/dat/lchen63/lrw/data/regions' , test_data[i][0])
+        img = cv2.imread(img_path)
+        img = cv2.resize(img, (112,112), interpolation = cv2.INTER_AREA)
+        cv2.imwrite(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'image', test_data[i][0]) , img)
+        #copyfile(img_path, os.path.join('/u/lchen63/data/lrw_yousaidthat', 'image', test_data[i][0]))
+
+        audio_path = os.path.join(audio_path_root, tmp[0], tmp[1],tmp[2]+'.wav')
+        audio,_ = librosa.load(audio_path, sr = 16000)
+
+        librosa.output.write_wav(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'audio', tmp[0], tmp[1] ,tmp[2]+'.wav'), audio, 16000)
+        # print (test_data[i])
+        if os.path.join('/u/lchen63/data/lrw_yousaidthat', 'audio', tmp[0], tmp[1] ,tmp[2]+'.wav') not in data:
+            gg = []
+            for g in gs:
+                gg.append(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'image', test_data[i][0][:-7] + "%03d.jpg"%g))
+            gg.append(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'audio', tmp[0], tmp[1] ,tmp[2]+'.wav'))
+            gg.append(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'image', test_data[i][0][:-7]))
+            data.append(os.path.join('/u/lchen63/data/lrw_yousaidthat', 'audio', tmp[0], tmp[1] ,tmp[2]+'.wav'))
+
+            csv_writer.writerow(gg)
+            count += 1
+            print count
+        if count == 300:
+            break
     # scipy.io.savemat(os.path.join( dataset_dir ,'test.mat' ), mdict={'test_data': data})
-read_pickle_yousaidthat()
+read_pickle_yousaidthat_voxceleb()
+# read_pickle_yousaidthat()
 # audio_extractor('EzraMiller')
 # imgs, name = lists('Eddie_Kaye_Thomas')
 # generating_landmark_lips(imgs, name)
