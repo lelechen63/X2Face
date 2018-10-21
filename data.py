@@ -373,6 +373,7 @@ def  read_pickle_yousaidthat_voxceleb():
     csv_writer = csv.writer(csv_file, delimiter=',')
     gs = [1,5,10,15,20]
     data = []
+    count = 0
     for line in _file:
         tmps = line.split()
         print (tmps)
