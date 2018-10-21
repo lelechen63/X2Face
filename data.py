@@ -402,9 +402,12 @@ def  read_pickle_yousaidthat_voxceleb():
             for clip in clips:
                 if os.path.exists(os.path.join(audio_path, video_name, '%05d.wav'%(int(clip)))):
                     flge = True
+                    if len(os.listdir(os.path.join(region_path, video_name, clip))) < 20:
+                        continue
                     for g in gs:
                         if not os.path.exists(os.path.join(v_path, clip,  "%02d.jpg"%g)):
                             continue
+
                     for i_n in os.listdir(os.path.join(region_path, video_name, clip)):
                         if i_n[-9:] == '_same.jpg':
                             continue
