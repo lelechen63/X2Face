@@ -407,17 +407,16 @@ def  read_pickle_yousaidthat_voxceleb():
                         cv2.imwrite(img_name.replace('.jpg','_112.jpg') , img)
 
                     for g in gs:
-                        gg.append(os.path.join(v_path, clip,  "%02d.jpg"%g))
+                        gg.append(os.path.join(v_path, clip,  "%02d_112.jpg"%g))
                     gg.append(os.path.join(audio_path, video_name, '%05d.wav'%(int(clip))))
                     gg.append(os.path.join(region_path, video_name, clip))
 
                     csv_writer.writerow(gg)
                     count += 1
-                    print count
-                    if count == 2:
-                        break
-                else:
-                    print (os.path.join(audio_path, video_name, '%05d.wav'%(int(clip))))
+        print count
+        if count == 2:
+            break
+                
 read_pickle_yousaidthat_voxceleb()
 # read_pickle_yousaidthat()
 # audio_extractor('EzraMiller')
