@@ -398,8 +398,9 @@ def  read_pickle_yousaidthat_voxceleb():
         for video_name in video_names:
             v_path = os.path.join(region_path, video_name)
             clips = os.listdir(v_path)
-            gg = []
+            
             for clip in clips:
+                gg = []
                 if os.path.exists(os.path.join(audio_path, video_name, '%05d.wav'%(int(clip)))):
                     flage = True
                     if len(os.listdir(os.path.join(region_path, video_name, clip))) < 20:
@@ -426,7 +427,6 @@ def  read_pickle_yousaidthat_voxceleb():
                             gg.append(os.path.join(v_path, clip,  "%02d_same.jpg"%g))
                         else:
                             flage = False
-                            print (os.path.join(v_path, clip,  "%02d_same.jpg"%g))
                             continue
                     
                     if flage == True:
@@ -434,7 +434,6 @@ def  read_pickle_yousaidthat_voxceleb():
                         gg.append(os.path.join(region_path, video_name, clip))
 
                         csv_writer.writerow(gg)
-                        gg = []
                         count += 1
         #         print count
         #         if count == 2:
