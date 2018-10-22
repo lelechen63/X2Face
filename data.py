@@ -436,15 +436,15 @@ def  read_pickle_yousaidthat_voxceleb():
                         csv_writer.writerow(gg)
                         gg = []
                         count += 1
-                print count
-                if count == 2:
-                    break
-            print count
-            if count == 2:
-                break
+        #         print count
+        #         if count == 2:
+        #             break
+        #     print count
+        #     if count == 2:
+        #         break
         print count
-        if count == 2:
-            break
+        # if count == 2:
+        #     break
                 
 read_pickle_yousaidthat_voxceleb()
 # read_pickle_yousaidthat()
